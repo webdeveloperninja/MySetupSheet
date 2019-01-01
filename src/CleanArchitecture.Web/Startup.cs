@@ -96,11 +96,9 @@ namespace CleanArchitecture.Web
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseMvc(routes =>
+            app.Run(async context =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                context.Response.Redirect("/swagger/index.html");
             });
         }
     }
