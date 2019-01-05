@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Web", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Tests", "tests\CleanArchitecture.Tests\CleanArchitecture.Tests.csproj", "{AEE17BAB-D187-4BC5-B640-40CC0749566C}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CleanArchitectureDB", "CleanArchitectureDB\CleanArchitectureDB.sqlproj", "{96087AE3-3939-4960-9858-6DE8C37D1C24}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CleanArchitectureDB", "src\CleanArchitectureDB\CleanArchitectureDB.sqlproj", "{96087AE3-3939-4960-9858-6DE8C37D1C24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
