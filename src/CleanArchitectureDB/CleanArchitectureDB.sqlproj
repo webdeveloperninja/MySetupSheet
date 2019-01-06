@@ -62,7 +62,7 @@
     <Build Include="ToDoItems.sql" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(ProjectDir)$(OutDir)*.dacpac" "$(SolutionDir)CleanArchitecture\$(OutDir)"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
