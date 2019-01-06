@@ -12,6 +12,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Infrastructure", "src\CleanArchitecture.Infrastructure\CleanArchitecture.Infrastructure.csproj", "{220361D6-9C76-4E3F-BD34-3C7B50E2CA4D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Web", "src\CleanArchitecture.Web\CleanArchitecture.Web.csproj", "{C9751CB7-4CD6-4633-A99A-4F6ADD525437}"
+	ProjectSection(ProjectDependencies) = postProject
+		{96087AE3-3939-4960-9858-6DE8C37D1C24} = {96087AE3-3939-4960-9858-6DE8C37D1C24}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanArchitecture.Tests", "tests\CleanArchitecture.Tests\CleanArchitecture.Tests.csproj", "{AEE17BAB-D187-4BC5-B640-40CC0749566C}"
 EndProject
