@@ -20,15 +20,17 @@ namespace CleanArchitecture.Web
 {
     public class Startup
     {
+        IConfiguration Configuration;
+
         public Startup(IConfiguration config)
         {
             Configuration = config;
         }
 
-        public IConfiguration Configuration { get; }
-
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ISettings, Settings>();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -44,6 +46,7 @@ namespace CleanArchitecture.Web
             services.AddMvc()
                 .AddControllersAsServices()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
 
             services.AddSwaggerGen(c =>
             {
@@ -87,7 +90,7 @@ namespace CleanArchitecture.Web
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                var apiTitle = Configuration.GetValue<string>("Swagger:Title");
+                var apiTitle = Configuration.GetValue<string>("ApiTitle");
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", apiTitle);
             });
 
