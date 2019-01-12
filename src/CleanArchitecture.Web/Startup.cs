@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
+
 
 namespace CleanArchitecture.Web
 {
@@ -88,12 +90,6 @@ namespace CleanArchitecture.Web
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
         }
 
     }
