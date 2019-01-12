@@ -94,6 +94,8 @@ namespace CleanArchitecture.Web
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", apiTitle);
             });
 
+            app.UseMvc();
+
         }
 
     }
