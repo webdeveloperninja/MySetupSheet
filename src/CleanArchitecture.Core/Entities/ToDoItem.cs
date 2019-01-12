@@ -7,7 +7,12 @@ namespace CleanArchitecture.Core.Entities
   {
     public string Title { get; set; }
     public string Description { get; set; }
-    public bool? IsDone { get; private set; }
+    public bool IsDone { get; private set; }
+
+    public ToDoItem()
+        {
+            IsDone = false;
+        }
 
     public void MarkComplete()
     {
