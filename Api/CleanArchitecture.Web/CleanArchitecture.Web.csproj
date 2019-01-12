@@ -7,6 +7,9 @@
     <PackageId>CleanArchitecture.Web</PackageId>
     <UserSecretsId>1a42a42c-d9ec-44c4-99fc-0373f22a2104</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
 
   <ItemGroup>
     <Content Update="wwwroot\**\*;Areas\**\Views;appsettings.json;web.config">
@@ -17,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CleanArchitecture.Core\CleanArchitecture.Core.csproj" />
     <ProjectReference Include="..\CleanArchitecture.Infrastructure\CleanArchitecture.Infrastructure.csproj" />
+    <ProjectReference Include="..\CleanArchitectureDB\CleanArchitectureDB.sqlproj" />
   </ItemGroup>
 
   <ItemGroup>
