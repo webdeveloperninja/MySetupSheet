@@ -1,5 +1,6 @@
 ﻿namespace CleanArchitecture.Web.Api
 {
+    using CleanArchitecture.Core.Commands;
     using CleanArchitecture.Core.Entities;
     using CleanArchitecture.Core.Interfaces;
     using CleanArchitecture.Core.Queries;
@@ -35,14 +36,20 @@
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = ToDoItemDTO.FromToDoItem(_repository.GetById<ToDoItem>(id));
+            var request = new GetTodoByIdRequest
+            {
+                Id = id
+            };
+
+            var item = await _mediator.Send(request);
+
             return Ok(item);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] ToDoItemDTO item)
+        public async Task<IActionResult> Post([FromBody] ToDoItemDTO item)
         {
             var todoItem = new ToDoItem()
             {
@@ -50,18 +57,14 @@
                 Description = item.Description
             };
 
-            _repository.Add(todoItem);
-            return Ok(ToDoItemDTO.FromToDoItem(todoItem));
-        }
+            var request = new AddTodoRequest
+            {
+                NewItem = todoItem
+            };
 
-        [HttpPatch("{id:int}/complete")]
-        public IActionResult Complete(int id)
-        {
-            var toDoItem = _repository.GetById<ToDoItem>(id);
-            toDoItem.MarkComplete();
-            _repository.Update(toDoItem);
+            var addedItem = await _mediator.Send(request);
 
-            return Ok(ToDoItemDTO.FromToDoItem(toDoItem));
+            return Ok(addedItem);
         }
     }
 }
