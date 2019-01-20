@@ -1,26 +1,29 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using CleanArchitecture.Core.SharedKernel;
-using CleanArchitecture.Infrastructure.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.Swagger;
-using System;
-using System.Reflection;
-using System.Threading.Tasks;
-
-
-namespace CleanArchitecture.Web
+﻿namespace CleanArchitecture.Web
 {
+    using Autofac;
+    using Autofac.Extensions.DependencyInjection;
+    using CleanArchitecture.Core.Interfaces;
+    using CleanArchitecture.Core.Queries;
+    using CleanArchitecture.Core.SharedKernel;
+    using CleanArchitecture.Infrastructure.Data;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Swashbuckle.AspNetCore.Swagger;
+    using System;
+    using System.Reflection;
+    using System.Threading.Tasks;
+
     public class Startup
     {
-        IConfiguration Configuration;
+
+        internal IConfiguration Configuration;
 
         public Startup(IConfiguration config)
         {
@@ -37,11 +40,12 @@ namespace CleanArchitecture.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            // TODO: Add DbContext and IOC
+
             string dbName = Guid.NewGuid().ToString();
             services.AddDbContext<AppDbContext>(options =>
-                //options.UseInMemoryDatabase(dbName));
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IRepository, EfRepository>();
 
             services.AddMvc()
                 .AddControllersAsServices()
@@ -53,6 +57,8 @@ namespace CleanArchitecture.Web
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
+            services.AddMediatR(typeof(GetTodosHandler).Assembly);
+
             return BuildDependencyInjectionProvider(services);
         }
 
@@ -60,10 +66,8 @@ namespace CleanArchitecture.Web
         {
             var builder = new ContainerBuilder();
 
-            // Populate the container using the service collection
             builder.Populate(services);
 
-            // TODO: Add Registry Classes to eliminate reference to Infrastructure
             Assembly webAssembly = Assembly.GetExecutingAssembly();
             Assembly coreAssembly = Assembly.GetAssembly(typeof(BaseEntity));
             Assembly infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository)); // TODO: Move to Infrastucture Registry
@@ -95,8 +99,6 @@ namespace CleanArchitecture.Web
             });
 
             app.UseMvc();
-
         }
-
     }
 }
