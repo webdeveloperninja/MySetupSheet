@@ -1,10 +1,10 @@
-﻿using CleanArchitecture.Core;
-using CleanArchitecture.Core.Entities;
-using CleanArchitecture.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CleanArchitecture.Web.Controllers
+﻿namespace CleanArchitecture.Web.Controllers
 {
+    using CleanArchitecture.Core;
+    using CleanArchitecture.Core.Entities;
+    using CleanArchitecture.Core.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
+
     public class ToDoController : Controller
     {
         private readonly IRepository _repository;
@@ -18,12 +18,6 @@ namespace CleanArchitecture.Web.Controllers
         {
             var items = _repository.List<ToDoItem>();
             return View(items);
-        }
-
-        public IActionResult Populate()
-        {
-            int recordsAdded = DatabasePopulator.PopulateDatabase(_repository);
-            return Ok(recordsAdded);
         }
     }
 }

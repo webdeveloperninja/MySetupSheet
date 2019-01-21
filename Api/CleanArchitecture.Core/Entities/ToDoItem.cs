@@ -1,23 +1,18 @@
-﻿using CleanArchitecture.Core.Events;
-using CleanArchitecture.Core.SharedKernel;
-
-namespace CleanArchitecture.Core.Entities
+﻿namespace CleanArchitecture.Core.Entities
 {
-  public class ToDoItem : BaseEntity
-  {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public bool IsDone { get; private set; }
+    using CleanArchitecture.Core.Entities;
 
-    public ToDoItem()
+    public class ToDoItem : BaseEntity
+    {
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public bool IsDone { get; private set; }
+
+        public ToDoItem()
         {
             IsDone = false;
         }
-
-    public void MarkComplete()
-    {
-      IsDone = true;
-      Events.Add(new ToDoItemCompletedEvent(this));
     }
-  }
 }
