@@ -2,9 +2,9 @@
 {
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using CleanArchitecture.Core.Entities;
     using CleanArchitecture.Core.Interfaces;
     using CleanArchitecture.Core.Queries;
-    using CleanArchitecture.Core.SharedKernel;
     using CleanArchitecture.Infrastructure.Data;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
