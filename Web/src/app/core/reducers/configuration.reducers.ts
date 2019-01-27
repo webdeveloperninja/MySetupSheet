@@ -1,8 +1,11 @@
-import { Action } from '@ngrx/store';
+import { Action, createSelector } from '@ngrx/store';
 import { ActionTypes, Actions } from '../actions/configuration.actions';
-import { Configuration } from '../models/configuration';
 
-export const initialState: Configuration = {
+export interface State {
+  isProduction: boolean;
+}
+
+export const initialState: State = {
   isProduction: true
 };
 
@@ -17,3 +20,10 @@ export function configurationReducer(state = initialState, action: Actions) {
       return state;
   }
 }
+
+export const getCoreState = (state: any) => state.core;
+
+export const getIsProduction = createSelector(
+  getCoreState,
+  state => state.isProduction
+);
