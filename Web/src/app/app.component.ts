@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Configuration } from './models/configuration';
-import { SetConfiguration } from './actions/configuration.actions';
+import { Store, select } from '@ngrx/store';
 import { environment } from '../environments/environment';
+import { SetConfiguration } from './core/actions/configuration.actions';
+import { Configuration } from './core/models/configuration';
+import { State } from './core/reducers/configuration.reducers';
+import * as fromCore from './core/reducers/configuration.reducers';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,9 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit {
   title = 'spa';
-  constructor(private readonly _store: Store<Configuration>) {}
+  constructor(private readonly _store: Store<State>) {}
+
+  isProduction$ = this._store.pipe(select(fromCore.getIsProduction));
 
   ngOnInit() {
     const configuration: Configuration = {
