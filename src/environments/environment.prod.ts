@@ -1,4 +1,4 @@
 export const environment = {
-  instrumentationKey: '$(instrumentationKey)$',
+  instrumentationKey: JSON.stringify('$(instrumentationKey)$'),
   production: !!'$(production)$'
 };
