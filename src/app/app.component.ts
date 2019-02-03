@@ -22,11 +22,11 @@ export class AppComponent implements OnInit {
     console.log(environment);
     const configuration: Configuration = {
       isProduction: environment.production,
-      appInsightsInstrumentationKey: environment.appInsightsInstrumentationKey
+      appInsightsInstrumentationKey: environment.instrumentationKey
     };
 
     this.store.dispatch(new SetConfiguration({ configuration }));
-    this._logger.init();
+    this._logger.init(environment.instrumentationKey);
     this._logger.logPageView('Page View');
   }
 }
