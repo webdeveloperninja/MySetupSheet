@@ -1,4 +1,4 @@
 export const environment = {
-  instrumentationKey: '#{ instrumentationKey }#',
-  production: !!'#{ production }#'
+  instrumentationKey: '#{instrumentationKey}#',
+  production: !!'#{production}#'
 };
