@@ -6,10 +6,10 @@ import { AppInsights } from 'applicationinsights-js';
   providedIn: 'root'
 })
 export class AppInsightsService {
-  init() {
+  init(instrumentationKey) {
     if (!AppInsights.config) {
       const config = {
-        instrumentationKey: environment.appInsightsInstrumentationKey
+        instrumentationKey
       };
       AppInsights.downloadAndSetup(config);
     }
