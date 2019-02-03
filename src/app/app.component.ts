@@ -5,6 +5,7 @@ import { SetConfiguration } from './core/actions/configuration.actions';
 import { Configuration } from './core/models/configuration';
 import { State } from './core/reducers/configuration.reducers';
 import * as fromCore from './core/reducers/configuration.reducers';
+import { AppInsightsService } from '@markpieszak/ng-application-insights';
 
 @Component({
   selector: 'app-root',
@@ -13,15 +14,17 @@ import * as fromCore from './core/reducers/configuration.reducers';
 })
 export class AppComponent implements OnInit {
   title = 'spa';
-  constructor(private readonly _store: Store<State>) {}
+  constructor(private readonly store: Store<State>, private readonly appInsightsService: AppInsightsService) {}
 
-  isProduction$ = this._store.pipe(select(fromCore.getIsProduction));
+  isProduction$ = this.store.pipe(select(fromCore.getIsProduction));
 
   ngOnInit() {
+    this.appInsightsService.init();
+
     const configuration: Configuration = {
       isProduction: environment.production
     };
 
-    this._store.dispatch(new SetConfiguration({ configuration }));
+    this.store.dispatch(new SetConfiguration({ configuration }));
   }
 }

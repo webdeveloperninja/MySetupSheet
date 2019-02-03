@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-application-insights';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,10 +17,13 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
+    ApplicationInsightsModule.forRoot({
+      instrumentationKey: environment.appInsightsInstrumentationKey
+    }),
     StoreModule.forRoot({}),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [],
+  providers: [AppInsightsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
