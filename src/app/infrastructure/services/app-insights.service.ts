@@ -7,7 +7,9 @@ import { AppInsights } from 'applicationinsights-js';
 })
 export class AppInsightsService {
   constructor() {
+    console.log('AppInsights', AppInsights);
     if (!AppInsights.config) {
+      console.log('download and setup', this.config);
       AppInsights.downloadAndSetup(this.config);
     }
   }
