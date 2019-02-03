@@ -19,11 +19,14 @@ export class AppComponent implements OnInit {
   isProduction$ = this.store.pipe(select(fromCore.getIsProduction));
 
   ngOnInit() {
+    console.log(environment);
     const configuration: Configuration = {
-      isProduction: environment.production
+      isProduction: environment.production,
+      appInsightsInstrumentationKey: environment.appInsightsInstrumentationKey
     };
 
     this.store.dispatch(new SetConfiguration({ configuration }));
+    this._logger.init();
     this._logger.logPageView('Page View');
   }
 }
