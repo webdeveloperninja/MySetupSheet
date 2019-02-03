@@ -6,14 +6,12 @@ import { AppInsights } from 'applicationinsights-js';
   providedIn: 'root'
 })
 export class AppInsightsService {
-  private config: Microsoft.ApplicationInsights.IConfig = {
-    instrumentationKey: environment.appInsightsInstrumentationKey
-  };
-
   init() {
     if (!AppInsights.config) {
-      console.log('download and setup', this.config);
-      AppInsights.downloadAndSetup(this.config);
+      const config = {
+        instrumentationKey: environment.appInsightsInstrumentationKey
+      };
+      AppInsights.downloadAndSetup(config);
     }
   }
 
