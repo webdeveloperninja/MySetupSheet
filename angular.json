@@ -34,6 +34,10 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [{
+                "replace": "src/assets/data/settings.json",
+                "with": "src/assets/data/settings.prod.json"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
