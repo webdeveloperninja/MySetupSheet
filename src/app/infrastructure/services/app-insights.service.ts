@@ -19,4 +19,8 @@ export class AppInsightsService {
   logPageView(name?: string, url?: string, properties?: any, measurements?: any, duration?: number) {
     AppInsights.trackPageView(name, url, properties, measurements, duration);
   }
+
+  logError(error: Error) {
+    AppInsights.trackException(error);
+  }
 }
