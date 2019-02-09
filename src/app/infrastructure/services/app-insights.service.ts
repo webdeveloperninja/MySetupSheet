@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AppInsights } from 'applicationinsights-js';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppInsightsService {
-  init() {
+  constructor(private readonly settings: SettingsService) {
     if (!AppInsights.config) {
       const config = {
-        instrumentationKey: '6b4997f7-abf2-4dc7-815a-452ba722ff53'
+        instrumentationKey: settings.get.applicationInsights.instrumentationKey
       };
+
       AppInsights.downloadAndSetup(config);
     }
   }
