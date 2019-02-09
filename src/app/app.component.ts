@@ -10,7 +10,6 @@ export class AppComponent implements OnInit {
   constructor(private readonly _logger: AppInsightsService) {}
 
   ngOnInit() {
-    this._logger.init();
     this._logger.logPageView('Page View');
   }
 }
