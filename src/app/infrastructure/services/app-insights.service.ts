@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { AppInsights } from 'applicationinsights-js';
 
 @Injectable({
@@ -9,7 +8,7 @@ export class AppInsightsService {
   init() {
     if (!AppInsights.config) {
       const config = {
-        instrumentationKey: environment.instrumentationKey
+        instrumentationKey: '6b4997f7-abf2-4dc7-815a-452ba722ff53'
       };
       AppInsights.downloadAndSetup(config);
     }
