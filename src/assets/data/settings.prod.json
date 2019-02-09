@@ -1,5 +1,5 @@
 {
-  "production": "#{production}",
+  "production": "#{ production }",
   "applicationInsights": {
     "instrumentationKey": "#{applicationInsights.instrumentationKey}"
   }
