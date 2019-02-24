@@ -5,8 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test",
-    "test-headless": "ng test --code-coverage --browsers=ChromeHeadless --reporters=progress,junit",
+    "test": "ng test --browsers=Chrome",
+    "test-headless": "ng test --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
