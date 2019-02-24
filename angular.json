@@ -133,7 +133,5 @@
     }
   },
   "defaultProject": "spa",
-  "cli": {
-    "defaultCollection": "@ngrx/schematics"
-  }
+  "cli": {}
 }

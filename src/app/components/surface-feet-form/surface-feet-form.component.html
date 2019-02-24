@@ -1,0 +1,11 @@
+<form [formGroup]="surfaceFeetForm">
+  <label>Diameter</label>
+  <input formControlName="diameter" type="number">
+  <label>Rpm</label>
+  <input formControlName="rpm" type="number">
+</form>
+<hr>
+<pre>
+  Diameter: {{ diameter$ | async }}
+  SFM: {{ surfaceFeetPerMinute$ | async }}
+</pre>

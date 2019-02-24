@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CncCalculatorComponent } from './components/cnc-calculator/cnc-calculator.component';
 
-const routes: Routes = [];
+const routes: Routes = [{ path: '', component: CncCalculatorComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
