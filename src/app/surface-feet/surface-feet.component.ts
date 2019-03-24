@@ -4,11 +4,11 @@ import { SurfaceFeetCalculations } from './surface-feet.calculations';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-surface-feet-form',
-  templateUrl: './surface-feet-form.component.html',
+  selector: 'app-surface-feet',
+  templateUrl: './surface-feet.component.html',
   providers: [SurfaceFeetInteractions, SurfaceFeetCalculations]
 })
-export class SurfaceFeetFormComponent {
+export class SurfaceFeetComponent {
   readonly form = this.interactions.form;
   readonly surfaceFeetPerMinute$ = this.calculations
     .getSurfaceFeetPerMinute()
