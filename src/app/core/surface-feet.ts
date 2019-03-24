@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { SurfaceFeetResponse } from './surface-feet-response';
 
 @Injectable()
-export class SurfaceFeet {
+export class SurfaceFeetCalculations {
   getSurfaceFeetPerMinute(diameter$: Observable<number>, rpm$: Observable<number>): Observable<SurfaceFeetResponse> {
     return combineLatest(diameter$, rpm$).pipe(map(([diameter, rpm]) => this.toSurfaceFeetPerMinuteResponse(diameter, rpm)));
   }
