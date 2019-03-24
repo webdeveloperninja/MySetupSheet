@@ -12,8 +12,8 @@ export class SurfaceFeetForm {
 
   constructor(private readonly formBuilder: FormBuilder) {}
 
-  diameter$: Observable<number> = this.form.controls.diameter.valueChanges.pipe(map(d => Number(d)));
-  rpm$: Observable<number> = this.form.controls.rpm.valueChanges.pipe(map(rpm => Number(rpm)));
+  diameterInput$: Observable<number> = this.form.controls.diameter.valueChanges.pipe(map(d => Number(d)));
+  rpmInput$: Observable<number> = this.form.controls.rpm.valueChanges.pipe(map(rpm => Number(rpm)));
 
   get(): FormGroup {
     return this.form;
