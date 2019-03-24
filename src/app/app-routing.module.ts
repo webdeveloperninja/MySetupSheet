@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CncCalculatorComponent } from './components/cnc-calculator/cnc-calculator.component';
+import { SurfaceFeetFormComponent } from './components/surface-feet-form/surface-feet-form.component';
 
-const routes: Routes = [{ path: '', component: CncCalculatorComponent }, { path: 'test', component: CncCalculatorComponent }];
+const routes: Routes = [{ path: '', component: SurfaceFeetFormComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
