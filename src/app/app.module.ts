@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SurfaceFeetComponent } from './surface-feet/surface-feet.component';
+import { SetupSheetComponent } from './containers/setup-sheet/setup-sheet.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ThemeModule } from './theme.module';
 
 @NgModule({
-  declarations: [AppComponent, SurfaceFeetComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, CommonModule],
+  declarations: [AppComponent, SetupSheetComponent],
+  imports: [BrowserModule, ThemeModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, CommonModule],
   providers: [],
   bootstrap: [AppComponent]
 })

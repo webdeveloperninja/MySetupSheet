@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SurfaceFeetComponent } from './surface-feet/surface-feet.component';
+import { SetupSheetComponent } from './containers/setup-sheet/setup-sheet.component';
 
-const routes: Routes = [{ path: '', component: SurfaceFeetComponent }];
+const routes: Routes = [{ path: '', component: SetupSheetComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
