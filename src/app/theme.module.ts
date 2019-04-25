@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatSidenavModule,
+    MatTabsModule
   ],
   exports: [
     MatButtonModule,
@@ -27,7 +31,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatSidenavModule,
+    MatTabsModule
   ]
 })
 export class ThemeModule {}
