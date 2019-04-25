@@ -50,9 +50,15 @@ export class ToolsComponent implements OnInit {
     this.dataSource.data = !!this.initialTools ? this.initialTools : [];
   }
 
+  clear() {
+    this.addTool.reset();
+    this.dataSource.data = [];
+  }
+
   submit() {
     this.dataSource.data = [...this.dataSource.data, this.addTool.value];
     this.toolsChange.emit(this.dataSource.data);
+    this.addTool.reset();
   }
 
   get hasTools(): boolean {

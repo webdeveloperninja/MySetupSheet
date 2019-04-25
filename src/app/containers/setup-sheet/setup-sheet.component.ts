@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import pdfMake from 'pdfmake/build/pdfmake';
 import vfsFonts from 'pdfmake/build/vfs_fonts';
 import { debounceTime, tap, map, filter } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToolsComponent } from 'src/app/components/tools/tools.component';
 
 export interface Tool {
   name: string;
@@ -21,6 +22,8 @@ export interface Tool {
   styleUrls: ['./setup-sheet.component.scss']
 })
 export class SetupSheetComponent implements OnInit {
+  @ViewChild(ToolsComponent) toolsComponent: ToolsComponent;
+
   pdfDataUrl: any = null;
   tools: Tool[] = [];
   mode = 'push';
@@ -158,9 +161,13 @@ export class SetupSheetComponent implements OnInit {
   clear() {
     this.setupSheet.reset();
     this.router.navigate(['.'], {
-      queryParams: null,
-      queryParamsHandling: 'merge'
+      queryParams: {
+        tools: null
+      }
     });
+    this.toolsComponent.clear();
+
+    this.renderChanges();
   }
 
   get hasParams(): boolean {
