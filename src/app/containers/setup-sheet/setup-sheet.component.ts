@@ -112,6 +112,10 @@ export class SetupSheetComponent implements OnInit {
     }
   }
 
+  clear() {
+    this.setupSheet.reset();
+  }
+
   get hasParams(): boolean {
     const params = this.activatedRoute.snapshot.queryParamMap;
 
