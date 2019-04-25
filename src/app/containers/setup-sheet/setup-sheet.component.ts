@@ -88,7 +88,7 @@ export class SetupSheetComponent implements OnInit {
             queryParamsHandling: 'merge'
           });
         }),
-        debounceTime(250),
+        debounceTime(400),
         tap(_ => {
           this.renderChanges();
         })
@@ -97,20 +97,18 @@ export class SetupSheetComponent implements OnInit {
 
     const params = this.activatedRoute.snapshot.queryParamMap;
 
-    if (!!params.get('partName')) {
+    if (
+      !!params.get('partName') ||
+      !!params.get('partNumber') ||
+      !!params.get('customer') ||
+      !!params.get('machine') ||
+      !!params.get('material')
+    ) {
       this.setupSheet.controls.partName.setValue(params.get('partName'));
-    }
-    if (!!params.get('partNumber')) {
-      this.setupSheet.controls.partName.setValue(params.get('partNumber'));
-    }
-    if (!!params.get('customer')) {
-      this.setupSheet.controls.partName.setValue(params.get('customer'));
-    }
-    if (!!params.get('machine')) {
-      this.setupSheet.controls.partName.setValue(params.get('customer'));
-    }
-    if (!!params.get('material')) {
-      this.setupSheet.controls.partName.setValue(params.get('customer'));
+      this.setupSheet.controls.partNumber.setValue(params.get('partNumber'));
+      this.setupSheet.controls.customer.setValue(params.get('customer'));
+      this.setupSheet.controls.machine.setValue(params.get('machine'));
+      this.setupSheet.controls.material.setValue(params.get('material'));
     }
   }
 
