@@ -14,6 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SetupSheetComponent implements OnInit {
   pdfDataUrl: any = null;
 
+  mode = 'push';
   readonly setupSheet = this.formBuilder.group({
     partName: [],
     partNumber: [],

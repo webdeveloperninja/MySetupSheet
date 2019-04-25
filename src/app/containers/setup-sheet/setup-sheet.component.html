@@ -6,7 +6,7 @@
 </mat-toolbar>
 
 <mat-drawer-container class="example-container" [hasBackdrop]="false">
-  <mat-drawer #drawer>
+  <mat-drawer #drawer [mode]="mode">
     <mat-tab-group>
       <mat-tab label="Details">
         <div class="d-flex justify-content-center">
@@ -46,7 +46,52 @@
           </form>
         </div>
       </mat-tab>
-      <mat-tab label="AddTool">Add Tool</mat-tab>
+      <mat-tab label="AddTool">
+        <div class="d-flex justify-content-center">
+          <form>
+
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Tool Name</mat-label>
+                <input matInput placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Tool Diameter</mat-label>
+                <input matInput placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Tool Material</mat-label>
+                <input matInput placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Stickout</mat-label>
+                <input matInput placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Offset H#</mat-label>
+                <input matInput placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Cutter Comp</mat-label>
+                <input matInput placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <button mat-raised-button color="primary" type="submit">Add</button>
+
+          </form>
+
+        </div>
+      </mat-tab>
     </mat-tab-group>
 
   </mat-drawer>

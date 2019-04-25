@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +11,16 @@ import { ThemeModule } from './theme.module';
 
 @NgModule({
   declarations: [AppComponent, SetupSheetComponent],
-  imports: [BrowserModule, ThemeModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, CommonModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ThemeModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    CommonModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
