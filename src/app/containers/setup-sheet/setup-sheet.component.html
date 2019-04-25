@@ -39,11 +39,11 @@
     <button mat-raised-button color="primary" type="submit">Refresh</button>
   </form>
   <div class="flex-grow-1 ml-3">
-    <ng-container *ngIf="!!pdfDataUrl; else emptyState">
-      <object type="application/pdf" [data]="pdfDataUrl" class="mt-2">
+    <div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
+      <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
         <p>Insert your error message here, if the PDF cannot be displayed.</p>
       </object>
-    </ng-container>
+    </div>
 
     <ng-template #emptyState>
       <mat-card class="d-flex justify-content-center">

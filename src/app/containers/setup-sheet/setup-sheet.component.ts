@@ -1,10 +1,10 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { map, share, tap, debounceTime } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-
 import pdfMake from 'pdfmake/build/pdfmake';
 import vfsFonts from 'pdfmake/build/vfs_fonts';
+import { debounceTime, tap } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-setup-sheet',
@@ -22,7 +22,12 @@ export class SetupSheetComponent implements OnInit {
     material: []
   });
 
-  constructor(private readonly formBuilder: FormBuilder, private readonly sanitizer: DomSanitizer) {}
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly sanitizer: DomSanitizer,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
+  ) {}
 
   onSubmit() {
     this.renderChanges();
@@ -35,13 +40,16 @@ export class SetupSheetComponent implements OnInit {
     const documentContext = {
       content: [
         {
-          text: `Part: ${this.setupSheet.controls.partName.value} - # ${this.setupSheet.controls.partNumber.value} - Material: ${
-            this.setupSheet.controls.material.value
-          }`,
+          text: `Part Name: ${this.activatedRoute.snapshot.queryParamMap.get('partName')}`,
           style: 'header'
         },
-        { text: `Customer: ${this.setupSheet.controls.customer.value}`, style: 'header' },
-        { text: `Machine: ${this.setupSheet.controls.machine.value}`, style: 'header' }
+        {
+          text: `Part Number: ${this.activatedRoute.snapshot.queryParamMap.get('partNumber')}`,
+          style: 'header'
+        },
+        { text: `Material: ${this.setupSheet.controls.material.value}`, style: 'header' },
+        { text: `Customer: ${this.activatedRoute.snapshot.queryParamMap.get('customer')}`, style: 'header' },
+        { text: `Machine: ${this.activatedRoute.snapshot.queryParamMap.get('machine')}`, style: 'header' }
       ],
       styles: {
         header: {
@@ -73,11 +81,48 @@ export class SetupSheetComponent implements OnInit {
   ngOnInit() {
     this.setupSheet.valueChanges
       .pipe(
-        debounceTime(500),
+        debounceTime(200),
+        tap(value => {
+          this.router.navigate(['.'], {
+            queryParams: value,
+            queryParamsHandling: 'merge'
+          });
+        }),
+        debounceTime(250),
         tap(_ => {
           this.renderChanges();
         })
       )
       .subscribe();
+
+    const params = this.activatedRoute.snapshot.queryParamMap;
+
+    if (!!params.get('partName')) {
+      this.setupSheet.controls.partName.setValue(params.get('partName'));
+    }
+    if (!!params.get('partNumber')) {
+      this.setupSheet.controls.partName.setValue(params.get('partNumber'));
+    }
+    if (!!params.get('customer')) {
+      this.setupSheet.controls.partName.setValue(params.get('customer'));
+    }
+    if (!!params.get('machine')) {
+      this.setupSheet.controls.partName.setValue(params.get('customer'));
+    }
+    if (!!params.get('material')) {
+      this.setupSheet.controls.partName.setValue(params.get('customer'));
+    }
+  }
+
+  get hasParams(): boolean {
+    const params = this.activatedRoute.snapshot.queryParamMap;
+
+    return (
+      !!params.get('material') ||
+      !!params.get('machine') ||
+      !!params.get('customer') ||
+      !!params.get('partNumber') ||
+      !!params.get('partName')
+    );
   }
 }

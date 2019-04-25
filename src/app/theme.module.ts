@@ -6,9 +6,28 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  imports: [MatButtonModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCardModule, MatTableModule],
-  exports: [MatButtonModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCardModule, MatTableModule]
+  imports: [
+    MatButtonModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatTableModule
+  ],
+  exports: [
+    MatButtonModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatTableModule
+  ]
 })
 export class ThemeModule {}
