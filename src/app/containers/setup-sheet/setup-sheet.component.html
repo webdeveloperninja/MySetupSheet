@@ -1,105 +1,49 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <mat-icon (click)="drawer.toggle()" class="mr-2">menu</mat-icon>
     <span>My Shop Setup - Setup sheet generator</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-drawer-container class="example-container" [hasBackdrop]="false">
-  <mat-drawer #drawer [mode]="mode">
-    <mat-tab-group>
-      <mat-tab label="Details">
-        <div class="d-flex justify-content-center">
-          <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()">
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Part Name</mat-label>
-                <input matInput formControlName="partName" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Part Number</mat-label>
-                <input matInput formControlName="partNumber" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Material</mat-label>
-                <input matInput formControlName="material" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Customer</mat-label>
-                <input matInput formControlName="customer" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Machine</mat-label>
-                <input matInput formControlName="machine" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <button mat-raised-button color="primary" type="submit">Refresh</button>
-            <button (click)="clear()" mat-raised-button color="primary" class="ml-2">Clear</button>
-          </form>
-        </div>
-      </mat-tab>
-      <mat-tab label="AddTool">
-        <div class="d-flex justify-content-center">
-          <form>
-
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Tool Name</mat-label>
-                <input matInput placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Tool Diameter</mat-label>
-                <input matInput placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Tool Material</mat-label>
-                <input matInput placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Stickout</mat-label>
-                <input matInput placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Offset H#</mat-label>
-                <input matInput placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Cutter Comp</mat-label>
-                <input matInput placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <button mat-raised-button color="primary" type="submit">Add</button>
-
-          </form>
-
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-
-  </mat-drawer>
-  <mat-drawer-content>
-    <mat-card class="d-flex setup-sheet">
-
-
-      <div class="flex-grow-1 ml-3">
+<mat-card class="d-flex setup-sheet">
+  <div class="setup-wrapper">
+    <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Part Name</mat-label>
+          <input matInput formControlName="partName" placeholder="Placeholder">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Part Number</mat-label>
+          <input matInput formControlName="partNumber" placeholder="Placeholder">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Material</mat-label>
+          <input matInput formControlName="material" placeholder="Placeholder">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Customer</mat-label>
+          <input matInput formControlName="customer" placeholder="Placeholder">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Machine</mat-label>
+          <input matInput formControlName="machine" placeholder="Placeholder">
+        </mat-form-field>
+      </p>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+      <button (click)="clear()" mat-raised-button color="primary" class="ml-2">Clear</button>
+    </form>
+  </div>
+  <div class="flex-grow-1 ml-3">
+    <mat-tab-group class="mat-elevation-z8">
+      <mat-tab label="Report">
         <div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
           <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
             <p>Insert your error message here, if the PDF cannot be displayed.</p>
@@ -118,8 +62,11 @@
             </div>
           </mat-card>
         </ng-template>
-      </div>
-    </mat-card>
+      </mat-tab>
 
-  </mat-drawer-content>
-</mat-drawer-container>
+      <mat-tab label="Tools">
+        <app-tools [initialTools]="tools$ | async" (toolsChange)="onToolsChange($event)"></app-tools>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</mat-card>

@@ -20,3 +20,23 @@ object {
 .mat-drawer-content {
   height: 91vh;
 }
+
+::ng-deep .mat-tab-body-wrapper {
+  height: 100vh;
+}
+
+.mat-tab-group {
+  height: 100vh;
+}
+
+::ng-deep .tab-wrapper {
+  margin-top: 24px;
+}
+
+.setup-wrapper {
+  width: 330px;
+}
+
+.mat-form-field {
+  width: 100%;
+}

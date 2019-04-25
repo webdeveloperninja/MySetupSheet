@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { SetupSheetComponent } from './containers/setup-sheet/setup-sheet.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeModule } from './theme.module';
+import { ToolsComponent } from './components/tools/tools.component';
 
 @NgModule({
-  declarations: [AppComponent, SetupSheetComponent],
+  declarations: [AppComponent, SetupSheetComponent, ToolsComponent],
   imports: [
     BrowserModule,
     FormsModule,

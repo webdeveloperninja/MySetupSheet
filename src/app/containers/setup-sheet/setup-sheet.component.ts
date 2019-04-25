@@ -3,8 +3,17 @@ import { FormBuilder } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import pdfMake from 'pdfmake/build/pdfmake';
 import vfsFonts from 'pdfmake/build/vfs_fonts';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, tap, map, filter } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
+
+export interface Tool {
+  name: string;
+  diameter: string;
+  material: string;
+  stickout: string;
+  offestHeight: string;
+  cutterCompensation: string;
+}
 
 @Component({
   selector: 'app-setup-sheet',
@@ -13,8 +22,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SetupSheetComponent implements OnInit {
   pdfDataUrl: any = null;
-
+  tools: Tool[] = [];
   mode = 'push';
+
+  tools$ = this.activatedRoute.queryParams.pipe(
+    filter(params => !!params && !!params['tools']),
+    map(params => JSON.parse(params['tools']))
+  );
+
   readonly setupSheet = this.formBuilder.group({
     partName: [],
     partNumber: [],
@@ -34,9 +49,24 @@ export class SetupSheetComponent implements OnInit {
     this.renderChanges();
   }
 
+  onToolsChange(tools) {
+    const params = { tools: JSON.stringify(tools) };
+
+    this.router.navigate(['.'], {
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
+
+    this.renderChanges();
+  }
+
   private renderChanges() {
     const { vfs } = vfsFonts.pdfMake;
     pdfMake.vfs = vfs;
+
+    const tools: [] | null = !!this.activatedRoute.snapshot.queryParams['tools']
+      ? JSON.parse(this.activatedRoute.snapshot.queryParams['tools'])
+      : null;
 
     const documentContext = {
       content: [
@@ -50,7 +80,12 @@ export class SetupSheetComponent implements OnInit {
         },
         { text: `Material: ${this.setupSheet.controls.material.value}`, style: 'header' },
         { text: `Customer: ${this.activatedRoute.snapshot.queryParamMap.get('customer')}`, style: 'header' },
-        { text: `Machine: ${this.activatedRoute.snapshot.queryParamMap.get('machine')}`, style: 'header' }
+        { text: `Machine: ${this.activatedRoute.snapshot.queryParamMap.get('machine')}`, style: 'header' },
+        {
+          table: {
+            body: [['Tool Name', 'Tool Diameter', 'Tool Material', 'Stickout', 'Offset H#', 'Cutter Comp']]
+          }
+        }
       ],
       styles: {
         header: {
@@ -73,6 +108,13 @@ export class SetupSheetComponent implements OnInit {
         }
       }
     };
+
+    if (!!tools) {
+      tools.forEach((tool: any) => {
+        const toolRow = [tool.name, tool.diameter, tool.material, tool.stickout, tool.offestHeight, tool.cutterCompensation];
+        documentContext.content[documentContext.content.length - 1].table.body.push(toolRow);
+      });
+    }
 
     pdfMake.createPdf(documentContext).getDataUrl(url => {
       this.pdfDataUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -115,6 +157,10 @@ export class SetupSheetComponent implements OnInit {
 
   clear() {
     this.setupSheet.reset();
+    this.router.navigate(['.'], {
+      queryParams: null,
+      queryParamsHandling: 'merge'
+    });
   }
 
   get hasParams(): boolean {
