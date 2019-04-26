@@ -52,6 +52,12 @@ export class SetupSheetComponent implements OnInit {
     this.renderChanges();
   }
 
+  selectedTabChange(tab) {
+    if (!!tab && tab.index === 0) {
+      setTimeout(() => this.renderChanges(), 600);
+    }
+  }
+
   onToolsChange(tools) {
     const params = { tools: JSON.stringify(tools) };
 
@@ -148,7 +154,8 @@ export class SetupSheetComponent implements OnInit {
       !!params.get('partNumber') ||
       !!params.get('customer') ||
       !!params.get('machine') ||
-      !!params.get('material')
+      !!params.get('material') ||
+      !!params.get('tools')
     ) {
       this.setupSheet.controls.partName.setValue(params.get('partName'));
       this.setupSheet.controls.partNumber.setValue(params.get('partNumber'));

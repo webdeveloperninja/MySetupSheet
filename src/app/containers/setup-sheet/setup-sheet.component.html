@@ -42,7 +42,7 @@
     </form>
   </div>
   <div class="flex-grow-1 ml-3">
-    <mat-tab-group class="mat-elevation-z8">
+    <mat-tab-group class="mat-elevation-z8" (selectedTabChange)="selectedTabChange($event)">
       <mat-tab label="Report">
         <div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
           <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
