@@ -22,6 +22,7 @@ export interface Tool {
   styleUrls: ['./setup-sheet.component.scss']
 })
 export class SetupSheetComponent implements OnInit {
+  opened = true;
   @ViewChild(ToolsComponent) toolsComponent: ToolsComponent;
 
   pdfDataUrl: any = null;
@@ -40,6 +41,16 @@ export class SetupSheetComponent implements OnInit {
     machine: [],
     material: []
   });
+
+  toggle() {
+    this.opened ? (this.opened = false) : (this.opened = true);
+
+    const params = { opened: this.opened ? 1 : 0 };
+    this.router.navigate(['.'], {
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
+  }
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -162,6 +173,17 @@ export class SetupSheetComponent implements OnInit {
       this.setupSheet.controls.customer.setValue(params.get('customer'));
       this.setupSheet.controls.machine.setValue(params.get('machine'));
       this.setupSheet.controls.material.setValue(params.get('material'));
+    }
+
+    if (!!params.get('opened')) {
+      const openedIndex = +params.get('opened');
+      if (openedIndex === 1) {
+        this.opened = true;
+      }
+
+      if (openedIndex === 0) {
+        this.opened = false;
+      }
     }
   }
 
