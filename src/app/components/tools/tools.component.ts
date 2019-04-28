@@ -38,11 +38,7 @@ export class ToolsComponent implements OnInit {
   readonly addTool = this.formBuilder.group({
     name: [],
     diameter: [],
-    material: [],
-    stickout: [],
-    offestHeight: [],
-    notes: [],
-    cutterCompensation: []
+    notes: []
   });
 
   constructor(private readonly formBuilder: FormBuilder) {}
