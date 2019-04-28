@@ -47,10 +47,10 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-tab-group class="mat-elevation-z8" (selectedTabChange)="selectedTabChange($event)">
+    <mat-tab-group class="mat-elevation-z8" [selectedIndex]="selectedTabIndex"
+      (selectedTabChange)="selectedTabChange($event)">
       <mat-tab label="Report">
         <div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
-          <div class="overlay"></div>
           <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
             <p>Insert your error message here, if the PDF cannot be displayed.</p>
           </object>

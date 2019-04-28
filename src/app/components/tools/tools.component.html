@@ -15,26 +15,8 @@
     </p>
     <p>
       <mat-form-field appearance="standard">
-        <mat-label>Tool Material</mat-label>
-        <input formControlName="material" matInput placeholder="Tool Material">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Stickout</mat-label>
-        <input formControlName="stickout" matInput placeholder="Tool Stickout">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Offset H#</mat-label>
-        <input formControlName="offestHeight" matInput placeholder="Tool Offset H#">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Cutter Comp</mat-label>
-        <input formControlName="cutterCompensation" matInput placeholder="Tool Cutter Comp">
+        <mat-label>Notes</mat-label>
+        <textarea formControlName="notes" matInput placeholder="Textarea"></textarea>
       </mat-form-field>
     </p>
     <button mat-raised-button color="primary" type="submit">Add</button>
@@ -46,30 +28,14 @@
           <th mat-header-cell *matHeaderCellDef> Tool Name </th>
           <td mat-cell *matCellDef="let tool"> {{tool.name}} </td>
         </ng-container>
-
         <ng-container matColumnDef="diameter">
           <th mat-header-cell *matHeaderCellDef> Diameter </th>
           <td mat-cell *matCellDef="let tool"> {{tool.diameter}} </td>
         </ng-container>
-
-        <ng-container matColumnDef="material">
-          <th mat-header-cell *matHeaderCellDef> Material </th>
-          <td mat-cell *matCellDef="let tool"> {{tool.material}} </td>
+        <ng-container matColumnDef="notes">
+          <th mat-header-cell *matHeaderCellDef> Notes </th>
+          <td mat-cell *matCellDef="let tool"> {{tool.notes}} </td>
         </ng-container>
-
-        <ng-container matColumnDef="stickout">
-          <th mat-header-cell *matHeaderCellDef> Stickout </th>
-          <td mat-cell *matCellDef="let tool"> {{tool.stickout}} </td>
-        </ng-container>
-        <ng-container matColumnDef="offestHeight">
-          <th mat-header-cell *matHeaderCellDef> Offset Height </th>
-          <td mat-cell *matCellDef="let tool"> {{tool.offestHeight}} </td>
-        </ng-container>
-        <ng-container matColumnDef="cutterCompensation">
-          <th mat-header-cell *matHeaderCellDef> Cutter Compensation </th>
-          <td mat-cell *matCellDef="let tool"> {{tool.cutterCompensation}} </td>
-        </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>

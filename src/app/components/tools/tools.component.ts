@@ -29,7 +29,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ToolsComponent implements OnInit {
   tools: any[] = [];
-  displayedColumns: string[] = ['name', 'diameter', 'material', 'stickout', 'offestHeight', 'cutterCompensation'];
+  displayedColumns: string[] = ['name', 'diameter', 'notes'];
 
   dataSource = new MatTableDataSource<any>();
   @Input() initialTools: any[];
@@ -41,6 +41,7 @@ export class ToolsComponent implements OnInit {
     material: [],
     stickout: [],
     offestHeight: [],
+    notes: [],
     cutterCompensation: []
   });
 

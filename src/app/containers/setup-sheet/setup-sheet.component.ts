@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import pdfMake from 'pdfmake/build/pdfmake';
 import vfsFonts from 'pdfmake/build/vfs_fonts';
 import { debounceTime, tap, map, filter } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToolsComponent } from 'src/app/components/tools/tools.component';
 
 export interface Tool {
@@ -23,6 +23,8 @@ export interface Tool {
 })
 export class SetupSheetComponent implements OnInit {
   opened = true;
+  selectedTabIndex = null;
+
   @ViewChild(ToolsComponent) toolsComponent: ToolsComponent;
 
   pdfDataUrl: any = null;
@@ -67,6 +69,13 @@ export class SetupSheetComponent implements OnInit {
     if (!!tab && tab.index === 0) {
       setTimeout(() => this.renderChanges(), 600);
     }
+
+    const params: Params = { tab: tab.index };
+
+    this.router.navigate(['.'], {
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
   }
 
   onToolsChange(tools) {
@@ -103,7 +112,7 @@ export class SetupSheetComponent implements OnInit {
         { text: `Machine: ${this.activatedRoute.snapshot.queryParamMap.get('machine')}`, style: 'header' },
         {
           table: {
-            body: [['Tool Name', 'Tool Diameter', 'Tool Material', 'Stickout', 'Offset H#', 'Cutter Comp']]
+            body: [['Tool Name', 'Tool Diameter', 'Notes']]
           }
         }
       ],
@@ -131,7 +140,7 @@ export class SetupSheetComponent implements OnInit {
 
     if (!!tools) {
       tools.forEach((tool: any) => {
-        const toolRow = [tool.name, tool.diameter, tool.material, tool.stickout, tool.offestHeight, tool.cutterCompensation];
+        const toolRow = [tool.name, tool.diameter, tool.notes];
         documentContext.content[documentContext.content.length - 1].table.body.push(toolRow);
       });
     }
@@ -184,6 +193,11 @@ export class SetupSheetComponent implements OnInit {
       if (openedIndex === 0) {
         this.opened = false;
       }
+    }
+
+    if (!!params.get('tab')) {
+      const tab = +params.get('tab');
+      this.selectedTabIndex = tab;
     }
   }
 
