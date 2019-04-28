@@ -40,3 +40,9 @@ object {
 ::ng-deep .mat-drawer-inner-container {
   padding: 7px;
 }
+
+.btn-link {
+  &:hover {
+    text-decoration: none;
+  }
+}

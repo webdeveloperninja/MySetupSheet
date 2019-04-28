@@ -41,7 +41,9 @@
           </mat-form-field>
         </p>
         <button mat-raised-button color="primary" type="submit">Refresh Report</button>
-        <button (click)="clear()" mat-raised-button color="primary" class="ml-2">Reset Report</button>
+        <a href="http://www.mysetupsheet.com/" target="blank" mat-raised-button color="primary"
+          class="ml-2 btn-link">New
+          Report</a>
       </form>
     </div>
   </mat-sidenav>
@@ -76,72 +78,3 @@
     </mat-tab-group>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-<!-- 
-<mat-card class="d-flex setup-sheet">
-  <div class="setup-wrapper">
-    <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()">
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Part Name</mat-label>
-          <input matInput formControlName="partName" placeholder="Placeholder">
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Part Number</mat-label>
-          <input matInput formControlName="partNumber" placeholder="Placeholder">
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Material</mat-label>
-          <input matInput formControlName="material" placeholder="Placeholder">
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Customer</mat-label>
-          <input matInput formControlName="customer" placeholder="Placeholder">
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="standard">
-          <mat-label>Machine</mat-label>
-          <input matInput formControlName="machine" placeholder="Placeholder">
-        </mat-form-field>
-      </p>
-      <button mat-raised-button color="primary" type="submit">Refresh Report</button>
-      <button (click)="clear()" mat-raised-button color="primary" class="ml-2">Reset Report</button>
-    </form>
-  </div>
-  <div class="flex-grow-1 ml-3">
-    <mat-tab-group class="mat-elevation-z8" (selectedTabChange)="selectedTabChange($event)">
-      <mat-tab label="Report">
-        <div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
-          <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
-            <p>Insert your error message here, if the PDF cannot be displayed.</p>
-          </object>
-        </div>
-
-        <ng-template #emptyState>
-          <mat-card class="d-flex justify-content-center">
-            <div>
-              <img class="img-responsive d-block" src="assets/clipboard.jpg">
-              <div>
-
-                <p class="display-3">Get Started</p>
-                <p class="mat-headline">Start by adding setup info to the left.</p>
-              </div>
-            </div>
-          </mat-card>
-        </ng-template>
-      </mat-tab>
-
-      <mat-tab label="Tools">
-        <app-tools [initialTools]="tools$ | async" (toolsChange)="onToolsChange($event)"></app-tools>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-</mat-card> -->
