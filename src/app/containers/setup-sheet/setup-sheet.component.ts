@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import pdfMake from 'pdfmake/build/pdfmake';
-import vfsFonts from 'pdfmake/build/vfs_fonts';
-import { debounceTime, tap, map, filter } from 'rxjs/operators';
+import { debounceTime, tap, map, filter, takeUntil } from 'rxjs/operators';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToolsComponent } from 'src/app/components/tools/tools.component';
 import { MediaObserver } from '@angular/flex-layout';
+import { DocumentContextClient } from './document-context-client';
+import { Subject } from 'rxjs';
 
 export interface Tool {
   name: string;
@@ -22,21 +23,19 @@ export interface Tool {
   templateUrl: './setup-sheet.component.html',
   styleUrls: ['./setup-sheet.component.scss']
 })
-export class SetupSheetComponent implements OnInit {
+export class SetupSheetComponent implements OnInit, OnDestroy {
+  pdfDataUrl: SafeResourceUrl = null;
   showDetailsTab = true;
-  opened = true;
+  isSideNavOpened = true;
   selectedTabIndex = null;
-
-  @ViewChild(ToolsComponent) toolsComponent: ToolsComponent;
-
-  pdfDataUrl: any = null;
   tools: Tool[] = [];
-  mode = 'push';
 
   tools$ = this.activatedRoute.queryParams.pipe(
     filter(params => !!params && !!params['tools']),
     map(params => JSON.parse(params['tools']))
   );
+
+  @ViewChild(ToolsComponent) toolsComponent: ToolsComponent;
 
   readonly setupSheet = this.formBuilder.group({
     partName: [],
@@ -46,30 +45,33 @@ export class SetupSheetComponent implements OnInit {
     material: []
   });
 
-  toggle() {
-    this.opened ? (this.opened = false) : (this.opened = true);
-
-    const params = { opened: this.opened ? 1 : 0 };
-    this.router.navigate(['.'], {
-      queryParams: params,
-      queryParamsHandling: 'merge'
-    });
-  }
+  private onDestroy$ = new Subject();
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly sanitizer: DomSanitizer,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly mediaObserver: MediaObserver
+    private readonly mediaObserver: MediaObserver,
+    private readonly documentClient: DocumentContextClient
   ) {}
+
+  toggleSideNav() {
+    this.isSideNavOpened ? (this.isSideNavOpened = false) : (this.isSideNavOpened = true);
+
+    const params = { opened: this.isSideNavOpened ? 1 : 0 };
+    this.router.navigate(['.'], {
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
+  }
 
   onSubmit() {
     this.renderChanges();
   }
 
   selectedTabChange(tab) {
-    if (!!tab && tab.index === 0) {
+    if (!!tab && tab.index === 0 && this.hasParams) {
       setTimeout(() => this.renderChanges(), 600);
     }
 
@@ -92,136 +94,23 @@ export class SetupSheetComponent implements OnInit {
     this.renderChanges();
   }
 
-  private renderChanges() {
-    const { vfs } = vfsFonts.pdfMake;
-    pdfMake.vfs = vfs;
-
-    const tools: [] | null = !!this.activatedRoute.snapshot.queryParams['tools']
-      ? JSON.parse(this.activatedRoute.snapshot.queryParams['tools'])
-      : null;
-
-    const documentContext = {
-      content: [
-        {
-          text: `Part Name: ${this.activatedRoute.snapshot.queryParamMap.get('partName')}`,
-          style: 'header'
-        },
-        {
-          text: `Part Number: ${this.activatedRoute.snapshot.queryParamMap.get('partNumber')}`,
-          style: 'header'
-        },
-        { text: `Material: ${this.setupSheet.controls.material.value}`, style: 'header' },
-        { text: `Customer: ${this.activatedRoute.snapshot.queryParamMap.get('customer')}`, style: 'header' },
-        { text: `Machine: ${this.activatedRoute.snapshot.queryParamMap.get('machine')}`, style: 'header' },
-        {
-          table: {
-            body: [['Tool Name', 'Tool Diameter', 'Notes']]
-          }
-        }
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10]
-        },
-        subheader: {
-          fontSize: 16,
-          bold: true,
-          margin: [0, 10, 0, 5]
-        },
-        tableExample: {
-          margin: [0, 5, 0, 15]
-        },
-        tableHeader: {
-          bold: true,
-          fontSize: 13,
-          color: 'black'
-        }
-      }
-    };
-
-    if (!!tools) {
-      tools.forEach((tool: any) => {
-        const toolRow = [tool.name, tool.diameter, tool.notes];
-        documentContext.content[documentContext.content.length - 1].table.body.push(toolRow);
-      });
-    }
-
-    pdfMake.createPdf(documentContext).getDataUrl(url => {
-      this.pdfDataUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-    });
-  }
-
   openPdf() {
-    const { vfs } = vfsFonts.pdfMake;
-    pdfMake.vfs = vfs;
-
-    const tools: [] | null = !!this.activatedRoute.snapshot.queryParams['tools']
-      ? JSON.parse(this.activatedRoute.snapshot.queryParams['tools'])
-      : null;
-
-    const documentContext = {
-      content: [
-        {
-          text: `Part Name: ${this.activatedRoute.snapshot.queryParamMap.get('partName')}`,
-          style: 'header'
-        },
-        {
-          text: `Part Number: ${this.activatedRoute.snapshot.queryParamMap.get('partNumber')}`,
-          style: 'header'
-        },
-        { text: `Material: ${this.setupSheet.controls.material.value}`, style: 'header' },
-        { text: `Customer: ${this.activatedRoute.snapshot.queryParamMap.get('customer')}`, style: 'header' },
-        { text: `Machine: ${this.activatedRoute.snapshot.queryParamMap.get('machine')}`, style: 'header' },
-        {
-          table: {
-            body: [['Tool Name', 'Tool Diameter', 'Notes']]
-          }
-        }
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10]
-        },
-        subheader: {
-          fontSize: 16,
-          bold: true,
-          margin: [0, 10, 0, 5]
-        },
-        tableExample: {
-          margin: [0, 5, 0, 15]
-        },
-        tableHeader: {
-          bold: true,
-          fontSize: 13,
-          color: 'black'
-        }
-      }
-    };
-
-    if (!!tools) {
-      tools.forEach((tool: any) => {
-        const toolRow = [tool.name, tool.diameter, tool.notes];
-        documentContext.content[documentContext.content.length - 1].table.body.push(toolRow);
-      });
-    }
-
+    const documentContext = this.documentClient.getDocumentContext();
     pdfMake.createPdf(documentContext).open();
   }
 
   ngOnInit() {
-    this.mediaObserver.media$.subscribe(m => {
+    this.mediaObserver.media$.pipe(takeUntil(this.onDestroy$)).subscribe(m => {
       if (m.mqAlias === 'sm' || m.mqAlias === 'xs') {
         this.showDetailsTab = true;
       } else {
         this.showDetailsTab = false;
       }
     });
+
     this.setupSheet.valueChanges
       .pipe(
+        takeUntil(this.onDestroy$),
         debounceTime(200),
         tap(value => {
           this.router.navigate(['.'], {
@@ -256,11 +145,11 @@ export class SetupSheetComponent implements OnInit {
     if (!!params.get('opened')) {
       const openedIndex = +params.get('opened');
       if (openedIndex === 1) {
-        this.opened = true;
+        this.isSideNavOpened = true;
       }
 
       if (openedIndex === 0) {
-        this.opened = false;
+        this.isSideNavOpened = false;
       }
     }
 
@@ -268,6 +157,10 @@ export class SetupSheetComponent implements OnInit {
       const tab = +params.get('tab');
       this.selectedTabIndex = tab;
     }
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
   }
 
   clear() {
@@ -280,6 +173,14 @@ export class SetupSheetComponent implements OnInit {
     this.toolsComponent.clear();
 
     this.renderChanges();
+  }
+
+  private renderChanges() {
+    const documentContext = this.documentClient.getDocumentContext();
+
+    pdfMake.createPdf(documentContext).getDataUrl(url => {
+      this.pdfDataUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    });
   }
 
   get hasParams(): boolean {

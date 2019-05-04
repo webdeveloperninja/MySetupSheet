@@ -2,7 +2,7 @@
   <mat-toolbar-row>
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex align-items-center">
-        <button class="d-none d-lg-flex" (click)="toggle()" mat-button>
+        <button class="d-none d-lg-flex" (click)="toggleSideNav()" mat-button>
           <mat-icon>menu</mat-icon>
         </button>
         <span>My Setup Sheet</span>
@@ -14,7 +14,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="d-none d-lg-flex">
+  <mat-sidenav #sidenav mode="side" [(opened)]="isSideNavOpened" class="d-none d-lg-flex">
     <div class="setup-wrapper">
       <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()">
         <p>

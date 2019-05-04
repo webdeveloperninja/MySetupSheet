@@ -24,16 +24,18 @@ object {
 }
 
 .setup-wrapper {
-  padding: 14px;
-
   form {
     width: 325px;
-    padding: 14px;
+    padding: 0;
   }
 }
 
 .mat-form-field {
   width: 100%;
+}
+
+::ng-deep .mat-drawer-container {
+  height: 91vh;
 }
 
 ::ng-deep .mat-drawer-inner-container {
