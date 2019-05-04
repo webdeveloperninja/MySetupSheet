@@ -31,6 +31,7 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
   settings: Enviroment = this.enviroment.settings;
   pdfDataUrl: SafeResourceUrl = null;
   showDetailsTab = true;
+  showReportTab = true;
   isSideNavOpened = true;
   selectedTabIndex = null;
   tools: Tool[] = [];
@@ -110,8 +111,10 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
     this.mediaObserver.media$.pipe(takeUntil(this.onDestroy$)).subscribe(m => {
       if (m.mqAlias === 'sm' || m.mqAlias === 'xs') {
         this.showDetailsTab = true;
+        this.showReportTab = false;
       } else {
         this.showDetailsTab = false;
+        this.showReportTab = true;
       }
     });
 
