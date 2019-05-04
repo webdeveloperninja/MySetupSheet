@@ -8,6 +8,8 @@ import { ToolsComponent } from 'src/app/components/tools/tools.component';
 import { MediaObserver } from '@angular/flex-layout';
 import { DocumentContextClient } from './document-context-client';
 import { Subject } from 'rxjs';
+import { EnviromentService } from 'src/app/core/services/enviroment.service';
+import { Enviroment } from 'src/enviroments/enviroment';
 
 export interface Tool {
   name: string;
@@ -24,6 +26,7 @@ export interface Tool {
   styleUrls: ['./setup-sheet.component.scss']
 })
 export class SetupSheetComponent implements OnInit, OnDestroy {
+  settings: Enviroment = this.enviroment.settings;
   pdfDataUrl: SafeResourceUrl = null;
   showDetailsTab = true;
   isSideNavOpened = true;
@@ -53,7 +56,8 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly mediaObserver: MediaObserver,
-    private readonly documentClient: DocumentContextClient
+    private readonly documentClient: DocumentContextClient,
+    private readonly enviroment: EnviromentService
   ) {}
 
   toggleSideNav() {

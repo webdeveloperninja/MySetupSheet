@@ -35,8 +35,8 @@
           "configurations": {
             "production": {
               "fileReplacements": [{
-                "replace": "src/assets/data/settings.json",
-                "with": "src/assets/data/settings.prod.json"
+                "replace": "src/enviroments/enviroment.dev.ts",
+                "with": "src/enviroments/enviroment.prod.ts"
               }],
               "optimization": true,
               "outputHashing": "all",

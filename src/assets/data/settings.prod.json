@@ -1,6 +1,0 @@
-{
-  "production": "#{production}#",
-  "applicationInsights": {
-    "instrumentationKey": "#{applicationInsights.instrumentationKey}#"
-  }
-}
