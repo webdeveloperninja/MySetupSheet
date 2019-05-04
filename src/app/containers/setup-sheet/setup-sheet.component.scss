@@ -13,8 +13,6 @@ object {
 
 .pdf-wrapper {
   width: 100%;
-  height: 80vh;
-  background-color: #595959;
 }
 
 object {
@@ -25,13 +23,8 @@ object {
   margin-top: 24px;
 }
 
-::ng-deep .mat-sidenav-container {
-  height: 90vh;
-}
-
 .setup-wrapper {
   padding: 14px;
-  height: 82vh;
 
   form {
     width: 325px;
