@@ -1,9 +1,17 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button class="d-none d-lg-flex" (click)="toggle()" mat-button>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>My Setup Sheet</span>
+    <div class="d-flex justify-content-between w-100">
+      <div class="d-flex align-items-center">
+        <button class="d-none d-lg-flex" (click)="toggle()" mat-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>My Setup Sheet</span>
+      </div>
+      <div class="d-flex">
+        <button mat-flat-button color="primary" class="mr-2" (click)="savePdf()">Save PDF</button>
+        <button mat-flat-button color="primary" class="mr-2" (click)="openPdf()">Open PDF</button>
+      </div>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
