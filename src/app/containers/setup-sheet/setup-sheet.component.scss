@@ -23,10 +23,16 @@ object {
   margin-top: 24px;
 }
 
+.sidenav-wrapper {
+  padding: 14px;
+}
+
 .setup-wrapper {
+  padding: 14px;
+
   form {
     width: 325px;
-    padding: 0;
+    padding: 12px 14px;
   }
 }
 

@@ -1,4 +1,4 @@
-<div class="d-flex tools-wrapper">
+<div class="d-lg-flex tools-wrapper">
   <form [formGroup]="addTool" (ngSubmit)="submit()" class="mat-elevation-z8 form">
 
     <p>
@@ -21,7 +21,7 @@
     </p>
     <button mat-raised-button color="primary" type="submit">Add</button>
   </form>
-  <div class="d-flex justify-content-center flex-grow-1 ml-3">
+  <div class="d-flex justify-content-center flex-grow-1 ml-lg-3 mt-lg-0 mt-4">
     <div *ngIf="hasTools; else emptyState" class="w-100">
       <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="name">
