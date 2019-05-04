@@ -1,26 +1,39 @@
 <div class="d-lg-flex tools-wrapper">
-  <form [formGroup]="addTool" (ngSubmit)="submit()" class="mat-elevation-z8 form">
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Tool
+        </mat-panel-title>
+        <mat-panel-description>
+          Create Tool Here
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Tool Name</mat-label>
-        <input formControlName="name" matInput placeholder="Tool name">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Tool Diameter</mat-label>
-        <input formControlName="diameter" matInput placeholder="Tool diameter">
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="standard">
-        <mat-label>Notes</mat-label>
-        <textarea formControlName="notes" matInput placeholder="Textarea"></textarea>
-      </mat-form-field>
-    </p>
-    <button mat-raised-button color="primary" type="submit">Add</button>
-  </form>
+      <form [formGroup]="addTool" (ngSubmit)="submit()" class="mat-elevation-z8 form">
+        <p>
+          <mat-form-field appearance="standard">
+            <mat-label>Tool Name</mat-label>
+            <input formControlName="name" matInput placeholder="Tool name">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="standard">
+            <mat-label>Tool Diameter</mat-label>
+            <input formControlName="diameter" matInput placeholder="Tool diameter">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="standard">
+            <mat-label>Notes</mat-label>
+            <textarea formControlName="notes" matInput placeholder="Textarea"></textarea>
+          </mat-form-field>
+        </p>
+        <button mat-raised-button color="primary" type="submit">Add</button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+
   <div class="d-flex justify-content-center flex-grow-1 ml-lg-3 mt-lg-0 mt-4">
     <div *ngIf="hasTools; else emptyState" class="w-100">
       <table mat-table [dataSource]="dataSource">
