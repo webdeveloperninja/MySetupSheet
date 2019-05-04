@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatCardModule,
     MatTableModule,
     MatSidenavModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +35,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatCardModule,
     MatTableModule,
     MatSidenavModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule
   ]
 })
 export class ThemeModule {}
