@@ -30,7 +30,13 @@ object {
 }
 
 .setup-wrapper {
-  width: 330px;
+  padding: 14px;
+  height: 82vh;
+
+  form {
+    width: 325px;
+    padding: 14px;
+  }
 }
 
 .mat-form-field {

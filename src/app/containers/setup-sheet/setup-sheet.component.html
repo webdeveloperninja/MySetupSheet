@@ -1,13 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button (click)="toggle()" mat-button>
+    <button class="d-none d-lg-flex" (click)="toggle()" mat-button>
       <mat-icon>menu</mat-icon>
     </button>
     <span>My Shop Setup - Setup sheet generator</span>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="d-none d-lg-flex">
     <div class="setup-wrapper">
       <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()">
         <p>
@@ -71,9 +71,48 @@
           </mat-card>
         </ng-template>
       </mat-tab>
-
       <mat-tab label="Tools">
         <app-tools [initialTools]="tools$ | async" (toolsChange)="onToolsChange($event)"></app-tools>
+      </mat-tab>
+      <mat-tab label="Details">
+        <div class="setup-wrapper">
+          <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()" class="mat-elevation-z8">
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Part Name</mat-label>
+                <input matInput formControlName="partName" placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Part Number</mat-label>
+                <input matInput formControlName="partNumber" placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Material</mat-label>
+                <input matInput formControlName="material" placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Customer</mat-label>
+                <input matInput formControlName="customer" placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <p>
+              <mat-form-field appearance="standard">
+                <mat-label>Machine</mat-label>
+                <input matInput formControlName="machine" placeholder="Placeholder">
+              </mat-form-field>
+            </p>
+            <button mat-raised-button color="primary" type="submit">Refresh Report</button>
+            <a href="http://www.mysetupsheet.com/" target="_blank" mat-raised-button color="primary"
+              class="ml-2 btn-link">New
+              Report</a>
+          </form>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </mat-sidenav-content>
