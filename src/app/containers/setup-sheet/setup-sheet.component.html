@@ -8,7 +8,6 @@
         <span>My Setup Sheet</span>
       </div>
       <div class="d-flex">
-        <button mat-flat-button color="primary" class="mr-2" (click)="savePdf()">Save PDF</button>
         <button mat-flat-button color="primary" class="mr-2" (click)="openPdf()">Open PDF</button>
       </div>
     </div>
@@ -65,15 +64,12 @@
             <p>Insert your error message here, if the PDF cannot be displayed.</p>
           </object>
         </div>
-
         <ng-template #emptyState>
           <mat-card class="d-flex justify-content-center">
             <div>
               <img class="img-responsive d-block" src="assets/clipboard.jpg">
               <div>
-
-                <p class="display-3">Get Started</p>
-                <p class="mat-headline">Start by adding setup info to the left.</p>
+                <p class="mat-headline text-center mt-3">Add tools or details to start</p>
               </div>
             </div>
           </mat-card>
