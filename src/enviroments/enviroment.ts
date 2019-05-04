@@ -2,4 +2,5 @@
 // to be replaced at build time.
 export interface Enviroment {
   production: boolean | string;
+  instrumentationKey: string;
 }

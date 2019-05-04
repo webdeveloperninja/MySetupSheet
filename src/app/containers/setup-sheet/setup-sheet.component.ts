@@ -10,6 +10,8 @@ import { DocumentContextClient } from './document-context-client';
 import { Subject } from 'rxjs';
 import { EnviromentService } from 'src/app/core/services/enviroment.service';
 import { Enviroment } from 'src/enviroments/enviroment';
+import { AppInsightService } from 'src/app/core/services/app-insights.service';
+import { BusinessEvent } from 'src/app/business-events';
 
 export interface Tool {
   name: string;
@@ -57,7 +59,8 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
     private readonly activatedRoute: ActivatedRoute,
     private readonly mediaObserver: MediaObserver,
     private readonly documentClient: DocumentContextClient,
-    private readonly enviroment: EnviromentService
+    private readonly enviroment: EnviromentService,
+    private readonly appInsights: AppInsightService
   ) {}
 
   toggleSideNav() {
@@ -180,6 +183,7 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
   }
 
   private renderChanges() {
+    this.appInsights.logEvent(BusinessEvent.renderPdf);
     const documentContext = this.documentClient.getDocumentContext();
 
     pdfMake.createPdf(documentContext).getDataUrl(url => {
