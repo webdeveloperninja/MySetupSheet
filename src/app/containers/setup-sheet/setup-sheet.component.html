@@ -74,7 +74,7 @@
       <mat-tab label="Tools">
         <app-tools [initialTools]="tools$ | async" (toolsChange)="onToolsChange($event)"></app-tools>
       </mat-tab>
-      <mat-tab label="Details">
+      <mat-tab label="Details" *ngIf="showDetailsTab">
         <div class="setup-wrapper">
           <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()" class="mat-elevation-z8">
             <p>

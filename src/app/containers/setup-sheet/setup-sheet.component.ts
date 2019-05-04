@@ -6,6 +6,7 @@ import vfsFonts from 'pdfmake/build/vfs_fonts';
 import { debounceTime, tap, map, filter } from 'rxjs/operators';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToolsComponent } from 'src/app/components/tools/tools.component';
+import { MediaObserver } from '@angular/flex-layout';
 
 export interface Tool {
   name: string;
@@ -22,6 +23,7 @@ export interface Tool {
   styleUrls: ['./setup-sheet.component.scss']
 })
 export class SetupSheetComponent implements OnInit {
+  showDetailsTab = true;
   opened = true;
   selectedTabIndex = null;
 
@@ -58,7 +60,8 @@ export class SetupSheetComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly sanitizer: DomSanitizer,
     private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly mediaObserver: MediaObserver
   ) {}
 
   onSubmit() {
@@ -151,6 +154,13 @@ export class SetupSheetComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.mediaObserver.media$.subscribe(m => {
+      if (m.mqAlias === 'sm' || m.mqAlias === 'xs') {
+        this.showDetailsTab = true;
+      } else {
+        this.showDetailsTab = false;
+      }
+    });
     this.setupSheet.valueChanges
       .pipe(
         debounceTime(200),

@@ -9,11 +9,13 @@ import { SetupSheetComponent } from './containers/setup-sheet/setup-sheet.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeModule } from './theme.module';
 import { ToolsComponent } from './components/tools/tools.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [AppComponent, SetupSheetComponent, ToolsComponent],
   imports: [
     BrowserModule,
+    FlexLayoutModule,
     FormsModule,
     ThemeModule,
     BrowserAnimationsModule,
