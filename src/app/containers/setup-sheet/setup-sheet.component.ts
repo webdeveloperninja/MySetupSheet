@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Location } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { debounceTime, tap, map, filter, takeUntil } from 'rxjs/operators';
@@ -12,6 +13,7 @@ import { EnviromentService } from 'src/app/core/services/enviroment.service';
 import { Enviroment } from 'src/enviroments/enviroment';
 import { AppInsightService } from 'src/app/core/services/app-insights.service';
 import { BusinessEvent } from 'src/app/business-events';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface Tool {
   name: string;
@@ -61,7 +63,8 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
     private readonly mediaObserver: MediaObserver,
     private readonly documentClient: DocumentContextClient,
     private readonly enviroment: EnviromentService,
-    private readonly appInsights: AppInsightService
+    private readonly appInsights: AppInsightService,
+    private readonly snackBar: MatSnackBar
   ) {}
 
   toggleSideNav() {
@@ -105,6 +108,16 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
   openPdf() {
     const documentContext = this.documentClient.getDocumentContext();
     pdfMake.createPdf(documentContext).open();
+  }
+
+  copyLinkToClipboard() {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', window.location.href);
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+    this.snackBar.open('Successfully copied link', null, { duration: 5000 });
   }
 
   ngOnInit() {

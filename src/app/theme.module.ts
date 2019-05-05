@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSidenavModule,
     MatTabsModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ],
   exports: [
     MatButtonModule,
@@ -39,7 +41,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSidenavModule,
     MatTabsModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ]
 })
 export class ThemeModule {}
