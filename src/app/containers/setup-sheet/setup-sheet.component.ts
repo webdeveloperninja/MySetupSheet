@@ -1,19 +1,18 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Location } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import pdfMake from 'pdfmake/build/pdfmake';
-import { debounceTime, tap, map, filter, takeUntil } from 'rxjs/operators';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ToolsComponent } from 'src/app/components/tools/tools.component';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MediaObserver } from '@angular/flex-layout';
-import { DocumentContextClient } from './document-context-client';
+import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import pdfMake from 'pdfmake/build/pdfmake';
 import { Subject } from 'rxjs';
+import { debounceTime, filter, map, takeUntil, tap } from 'rxjs/operators';
+import { BusinessEvent } from 'src/app/business-events';
+import { ToolsComponent } from 'src/app/components/tools/tools.component';
+import { AppInsightService } from 'src/app/core/services/app-insights.service';
 import { EnviromentService } from 'src/app/core/services/enviroment.service';
 import { Enviroment } from 'src/enviroments/enviroment';
-import { AppInsightService } from 'src/app/core/services/app-insights.service';
-import { BusinessEvent } from 'src/app/business-events';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { DocumentContextClient } from './document-context-client';
 
 export interface Tool {
   name: string;
