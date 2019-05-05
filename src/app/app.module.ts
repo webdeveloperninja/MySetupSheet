@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeModule } from './theme.module';
 import { ToolsComponent } from './components/tools/tools.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [AppComponent, SetupSheetComponent, ToolsComponent],
@@ -22,7 +23,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

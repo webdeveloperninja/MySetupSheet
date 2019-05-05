@@ -110,14 +110,12 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
     pdfMake.createPdf(documentContext).open();
   }
 
-  copyLinkToClipboard() {
-    document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', window.location.href);
-      e.preventDefault();
-      document.removeEventListener('copy', null);
-    });
-    document.execCommand('copy');
-    this.snackBar.open('Successfully copied link', null, { duration: 5000 });
+  get href(): string {
+    return window.location.href;
+  }
+
+  copied() {
+    this.snackBar.open('Successfully copied to clipboard', null, { duration: 3500 });
   }
 
   ngOnInit() {

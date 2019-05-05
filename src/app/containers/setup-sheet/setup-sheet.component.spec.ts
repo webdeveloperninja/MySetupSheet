@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ThemeModule } from 'src/app/theme.module';
 import { ToolsComponent } from 'src/app/components/tools/tools.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClipboardModule } from 'ngx-clipboard';
 
 describe('SetupSheetComponent', () => {
   let component: SetupSheetComponent;
@@ -12,7 +13,7 @@ describe('SetupSheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, ThemeModule, RouterTestingModule, BrowserAnimationsModule],
+      imports: [ReactiveFormsModule, ThemeModule, RouterTestingModule, BrowserAnimationsModule, ClipboardModule],
       declarations: [SetupSheetComponent, ToolsComponent]
     }).compileComponents();
   }));

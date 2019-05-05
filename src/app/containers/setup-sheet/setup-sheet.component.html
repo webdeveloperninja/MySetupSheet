@@ -17,7 +17,7 @@
             <mat-icon>launch</mat-icon>
             <span>Open PDF</span>
           </button>
-          <button mat-menu-item (click)="copyLinkToClipboard()">
+          <button mat-menu-item ngxClipboard (cbOnSuccess)="copied()" [cbContent]="href">
             <mat-icon>file_copy</mat-icon>
             <span>Copy shareable link</span>
           </button>
