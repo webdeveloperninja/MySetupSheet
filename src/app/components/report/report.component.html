@@ -1,0 +1,15 @@
+<div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
+  <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
+    <p>Insert your error message here, if the PDF cannot be displayed.</p>
+  </object>
+</div>
+<ng-template #emptyState>
+  <mat-card class="d-flex justify-content-center">
+    <div>
+      <img class="img-responsive d-block empty-img-clipboard" src="assets/clipboard.jpg">
+      <div>
+        <p class="mat-headline text-center mt-3">Add tools or details to start</p>
+      </div>
+    </div>
+  </mat-card>
+</ng-template>

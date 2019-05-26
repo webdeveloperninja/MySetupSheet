@@ -1,135 +1,20 @@
 <h1 hidden>{{ settings | json }}</h1>
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <div class="d-flex justify-content-between w-100">
-      <div class="d-flex align-items-center">
-        <button class="d-none d-lg-flex" (click)="toggleSideNav()" mat-button>
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span>My Setup Sheet</span>
-      </div>
-      <div class="d-flex">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openPdf()">
-            <mat-icon>launch</mat-icon>
-            <span>Open PDF</span>
-          </button>
-          <button mat-menu-item ngxClipboard (cbOnSuccess)="copied()" [cbContent]="href">
-            <mat-icon>file_copy</mat-icon>
-            <span>Copy shareable link</span>
-          </button>
-        </mat-menu>
-      </div>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
+<app-top-bar></app-top-bar>
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [(opened)]="isSideNavOpened" class="d-none d-lg-flex">
-    <div class="sidenav-wrapper">
-      <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()">
-        <p>
-          <mat-form-field appearance="standard">
-            <mat-label>Part Name</mat-label>
-            <input matInput formControlName="partName" placeholder="Placeholder">
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="standard">
-            <mat-label>Part Number</mat-label>
-            <input matInput formControlName="partNumber" placeholder="Placeholder">
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="standard">
-            <mat-label>Material</mat-label>
-            <input matInput formControlName="material" placeholder="Placeholder">
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="standard">
-            <mat-label>Customer</mat-label>
-            <input matInput formControlName="customer" placeholder="Placeholder">
-          </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="standard">
-            <mat-label>Machine</mat-label>
-            <input matInput formControlName="machine" placeholder="Placeholder">
-          </mat-form-field>
-        </p>
-        <button mat-raised-button color="primary" type="submit">Refresh Report</button>
-        <a href="http://www.mysetupsheet.com/" target="_blank" mat-raised-button color="primary"
-          class="ml-2 btn-link">New
-          Report</a>
-      </form>
-    </div>
+  <mat-sidenav #sidenav mode="side" [opened]="isSideNavOpen$ | async" class="d-none d-lg-flex">
+    <app-details></app-details>
   </mat-sidenav>
-
   <mat-sidenav-content>
     <mat-tab-group class="mat-elevation-z8" [selectedIndex]="selectedTabIndex"
       (selectedTabChange)="selectedTabChange($event)">
       <mat-tab *ngIf="showReportTab" label="Report">
-        <div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
-          <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
-            <p>Insert your error message here, if the PDF cannot be displayed.</p>
-          </object>
-        </div>
-        <ng-template #emptyState>
-          <mat-card class="d-flex justify-content-center">
-            <div>
-              <img class="img-responsive d-block empty-img-clipboard" src="assets/clipboard.jpg">
-              <div>
-                <p class="mat-headline text-center mt-3">Add tools or details to start</p>
-              </div>
-            </div>
-          </mat-card>
-        </ng-template>
+        <app-report></app-report>
       </mat-tab>
       <mat-tab label="Tools">
-        <app-tools [initialTools]="tools$ | async" (toolsChange)="onToolsChange($event)"></app-tools>
+        <app-tools></app-tools>
       </mat-tab>
       <mat-tab label="Details" *ngIf="showDetailsTab">
-        <div class="setup-wrapper">
-          <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()" class="mat-elevation-z8">
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Part Name</mat-label>
-                <input matInput formControlName="partName" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Part Number</mat-label>
-                <input matInput formControlName="partNumber" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Material</mat-label>
-                <input matInput formControlName="material" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Customer</mat-label>
-                <input matInput formControlName="customer" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <p>
-              <mat-form-field appearance="standard">
-                <mat-label>Machine</mat-label>
-                <input matInput formControlName="machine" placeholder="Placeholder">
-              </mat-form-field>
-            </p>
-            <button mat-raised-button color="primary" type="submit">Refresh Report</button>
-            <a href="http://www.mysetupsheet.com/" target="_blank" mat-raised-button color="primary"
-              class="ml-2 btn-link">New
-              Report</a>
-          </form>
-        </div>
+        <app-details></app-details>
       </mat-tab>
     </mat-tab-group>
   </mat-sidenav-content>

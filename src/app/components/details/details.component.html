@@ -1,0 +1,37 @@
+<mat-card>
+  <form [formGroup]="setupSheet" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Part Name</mat-label>
+        <input matInput formControlName="partName" placeholder="Placeholder">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Part Number</mat-label>
+        <input matInput formControlName="partNumber" placeholder="Placeholder">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Material</mat-label>
+        <input matInput formControlName="material" placeholder="Placeholder">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Customer</mat-label>
+        <input matInput formControlName="customer" placeholder="Placeholder">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Machine</mat-label>
+        <input matInput formControlName="machine" placeholder="Placeholder">
+      </mat-form-field>
+    </p>
+    <button mat-raised-button color="primary" type="submit">Refresh Report</button>
+    <a href="http://www.mysetupsheet.com/" target="_blank" mat-raised-button color="primary" class="ml-2 btn-link">New
+      Report</a>
+  </form>
+</mat-card>

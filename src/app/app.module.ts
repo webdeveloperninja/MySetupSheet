@@ -12,9 +12,12 @@ import { ToolsComponent } from './components/tools/tools.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ClipboardModule } from 'ngx-clipboard';
 import { GlobalErrorHandler } from './core/global-error-handler';
+import { DetailsComponent } from './components/details/details.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { ReportComponent } from './components/report/report.component';
 
 @NgModule({
-  declarations: [AppComponent, SetupSheetComponent, ToolsComponent],
+  declarations: [AppComponent, SetupSheetComponent, ToolsComponent, DetailsComponent, TopBarComponent, ReportComponent],
   imports: [
     BrowserModule,
     FlexLayoutModule,

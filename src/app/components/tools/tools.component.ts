@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
+import { filter, map, first } from 'rxjs/operators';
 
 export interface PeriodicElement {
   name: string;
@@ -16,12 +18,13 @@ export interface PeriodicElement {
   styleUrls: ['./tools.component.scss']
 })
 export class ToolsComponent implements OnInit {
-  tools: any[] = [];
   displayedColumns: string[] = ['name', 'diameter', 'notes'];
-
   dataSource = new MatTableDataSource<any>();
-  @Input() initialTools: any[];
-  @Output() toolsChange = new EventEmitter<any[]>();
+
+  tools$ = this.activatedRoute.queryParams.pipe(
+    filter(params => !!params && !!params['tools']),
+    map(params => JSON.parse(params['tools']))
+  );
 
   readonly addTool = this.formBuilder.group({
     name: [],
@@ -29,10 +32,17 @@ export class ToolsComponent implements OnInit {
     notes: []
   });
 
-  constructor(private readonly formBuilder: FormBuilder, private readonly snackBar: MatSnackBar) {}
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly snackBar: MatSnackBar,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.dataSource.data = !!this.initialTools ? this.initialTools : [];
+    this.tools$.pipe(first()).subscribe(tools => {
+      this.dataSource.data = !!tools ? tools : [];
+    });
   }
 
   clear() {
@@ -42,8 +52,15 @@ export class ToolsComponent implements OnInit {
 
   submit() {
     this.dataSource.data = [...this.dataSource.data, this.addTool.value];
-    this.toolsChange.emit(this.dataSource.data);
     this.addTool.reset();
+
+    const params = { tools: JSON.stringify(this.dataSource.data) };
+
+    this.router.navigate(['.'], {
+      queryParams: params,
+      queryParamsHandling: 'merge'
+    });
+
     this.snackBar.open('Successfully added tool', null, { duration: 5000 });
   }
 

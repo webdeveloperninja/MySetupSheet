@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div class="d-flex justify-content-between w-100">
+      <div class="d-flex align-items-center">
+        <button class="d-none d-lg-flex" (click)="onSideNavChange()" mat-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>My Setup Sheet</span>
+      </div>
+      <div class="d-flex">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openPdf()">
+            <mat-icon>launch</mat-icon>
+            <span>Open PDF</span>
+          </button>
+          <button mat-menu-item ngxClipboard (cbOnSuccess)="onCopySuccess()" [cbContent]="href">
+            <mat-icon>file_copy</mat-icon>
+            <span>Copy shareable link</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
