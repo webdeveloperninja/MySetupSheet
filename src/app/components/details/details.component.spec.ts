@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DetailsComponent } from './details.component';
+import { ThemeModule } from '../../theme.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DetailsComponent', () => {
   let component: DetailsComponent;
@@ -8,9 +12,9 @@ describe('DetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailsComponent ]
-    })
-    .compileComponents();
+      imports: [ThemeModule, ReactiveFormsModule, RouterTestingModule, NoopAnimationsModule],
+      declarations: [DetailsComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

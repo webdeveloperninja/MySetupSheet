@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SideNavService } from 'src/app/core/services/side-nav.service';
-import { DocumentContextClient } from 'src/app/containers/setup-sheet/document-context-client';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SideNavService } from '../../core/services/side-nav.service';
+import { DocumentContextClient } from '../../containers/setup-sheet/document-context-client';
 
 @Component({
   selector: 'app-top-bar',

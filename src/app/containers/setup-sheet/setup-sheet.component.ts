@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { map, takeUntil } from 'rxjs/operators';
-import { EnviromentService } from 'src/app/core/services/enviroment.service';
-import { Enviroment } from 'src/enviroments/enviroment';
 import { MediaObserver } from '@angular/flex-layout';
 import { Subject } from 'rxjs';
+import { Enviroment } from '../../../enviroments/enviroment';
+import { EnviromentService } from '../../core/services/enviroment.service';
 
 export interface Tool {
   name: string;
