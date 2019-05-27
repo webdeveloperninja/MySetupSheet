@@ -1,4 +1,4 @@
-<div class="pdf-wrapper" *ngIf="!!pdfDataUrl || hasParams; else emptyState">
+<div class="pdf-wrapper" *ngIf="hasParams; else emptyState">
   <object *ngIf="!!pdfDataUrl" type="application/pdf" [data]="pdfDataUrl" class="mt-2">
     <p>Insert your error message here, if the PDF cannot be displayed.</p>
   </object>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { AppInsightService } from 'src/app/core/services/app-insights.service';
+import { AppInsightService } from '../../core/services/app-insights.service';
 import pdfMake from 'pdfmake/build/pdfmake';
-import { BusinessEvent } from 'src/app/business-events';
-import { DocumentContextClient } from 'src/app/containers/setup-sheet/document-context-client';
+import { BusinessEvent } from '../../business-events';
+import { DocumentContextClient } from '../../containers/setup-sheet/document-context-client';
 
 @Component({
   selector: 'app-report',
