@@ -3,6 +3,8 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SideNavService } from '../../core/services/side-nav.service';
 import { DocumentContextClient } from '../../containers/setup-sheet/document-context-client';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { EmailReportComponent } from '../email-report/email-report.component';
 
 @Component({
   selector: 'app-top-bar',
@@ -13,7 +15,8 @@ export class TopBarComponent implements OnInit, OnDestroy {
   constructor(
     private readonly sideNav: SideNavService,
     private readonly documentClient: DocumentContextClient,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
+    private readonly dialog: MatDialog
   ) {}
 
   get href(): string {
@@ -30,6 +33,10 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
   onSideNavChange() {
     this.sideNav.toggleSideNav();
+  }
+
+  onOpenEmailDialog() {
+    this.dialog.open(EmailReportComponent);
   }
 
   onCopySuccess() {

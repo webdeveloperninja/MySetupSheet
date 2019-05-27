@@ -15,9 +15,18 @@ import { GlobalErrorHandler } from './core/global-error-handler';
 import { DetailsComponent } from './components/details/details.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { ReportComponent } from './components/report/report.component';
+import { EmailReportComponent } from './components/email-report/email-report.component';
 
 @NgModule({
-  declarations: [AppComponent, SetupSheetComponent, ToolsComponent, DetailsComponent, TopBarComponent, ReportComponent],
+  declarations: [
+    AppComponent,
+    SetupSheetComponent,
+    ToolsComponent,
+    DetailsComponent,
+    TopBarComponent,
+    ReportComponent,
+    EmailReportComponent
+  ],
   imports: [
     BrowserModule,
     FlexLayoutModule,
@@ -36,6 +45,7 @@ import { ReportComponent } from './components/report/report.component';
       useClass: GlobalErrorHandler
     }
   ],
+  entryComponents: [EmailReportComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

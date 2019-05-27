@@ -1,0 +1,9 @@
+<form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+  <div class="d-flex align-items-center">
+    <mat-form-field>
+      <input matInput formControlName="emailAddress" placeholder="To Address">
+    </mat-form-field>
+    <mat-spinner *ngIf="isLoading$ | async" diameter="16" class="ml-2"></mat-spinner>
+    <button mat-raised-button color="primary" class="ml-3" type="submit">Send</button>
+  </div>
+</form>
