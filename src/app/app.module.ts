@@ -16,6 +16,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { ReportComponent } from './components/report/report.component';
 import { EmailReportComponent } from './components/email-report/email-report.component';
+import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EmailReportComponent } from './components/email-report/email-report.com
     DetailsComponent,
     TopBarComponent,
     ReportComponent,
-    EmailReportComponent
+    EmailReportComponent,
+    PhotoUploadComponent
   ],
   imports: [
     BrowserModule,
