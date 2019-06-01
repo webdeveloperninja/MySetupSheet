@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { empty } from 'rxjs';
 
 export interface Data {
   image: string;
@@ -15,12 +18,16 @@ export interface Data {
 export class PhotoCropperComponent implements OnInit {
   croppedImage: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Data, private readonly _httpClient: HttpClient) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: Data,
+    private readonly _httpClient: HttpClient,
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {}
 
   save() {
-    console.log('save', this.croppedImage);
     const Base64Data = this.croppedImage.split(',')[1];
     this._httpClient
       .post('https://ninjawebstorage.azurewebsites.net/api/Storage?code=U0ijSLnySRppyW4j62PaaNRSTEaFMyoRbP7aH9YN0LaldI4QRDXzig==', {
@@ -28,7 +35,19 @@ export class PhotoCropperComponent implements OnInit {
         ContainerName: 'mysetupsheet',
         Base64Data: Base64Data
       })
-      .subscribe();
+      .pipe(
+        catchError(err => {
+          console.log(err);
+          return empty();
+        })
+      )
+      .subscribe(response => {
+        this._router.navigate(['.'], {
+          queryParams: {
+            images: [response['resourceUri']]
+          }
+        });
+      });
   }
 
   imageCropped(event: any) {
