@@ -16,7 +16,8 @@ import { DetailsComponent } from './components/details/details.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { ReportComponent } from './components/report/report.component';
 import { EmailReportComponent } from './components/email-report/email-report.component';
-import { PhotoUploadComponent } from './components/photo-upload/photo-upload.component';
+import { PhotosComponent } from './components/photos/photos.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { PhotoUploadComponent } from './components/photo-upload/photo-upload.com
     TopBarComponent,
     ReportComponent,
     EmailReportComponent,
-    PhotoUploadComponent
+    PhotosComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +40,8 @@ import { PhotoUploadComponent } from './components/photo-upload/photo-upload.com
     HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
-    ClipboardModule
+    ClipboardModule,
+    ImageCropperModule
   ],
   providers: [
     {
