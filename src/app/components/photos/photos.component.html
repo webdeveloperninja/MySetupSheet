@@ -1,15 +1,9 @@
-<div class="file-upload">
-  <div class="file-select">
-    <div class="file-select-button" id="fileName">Choose Photo</div>
-    <div class="file-select-name" id="noFile">No file chosen...</div>
-    <input type="file" name="chooseFile" id="chooseFile" (change)="fileUploadEvent($event)">
-  </div>
-</div>
-<div fxLayout="row">
-  <image-cropper [imageChangedEvent]="fileToUpload" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
-    [resizeToWidth]="128" format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
-    (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
-  <div>
-    <img [src]="croppedImage" />
+<div class="photos-component">
+  <div class="file-upload">
+    <div class="file-select">
+      <div class="file-select-button" id="fileName">Choose Photo</div>
+      <div class="file-select-name" id="noFile">No file chosen...</div>
+      <input type="file" name="chooseFile" id="chooseFile" (change)="fileUploadEvent($event)">
+    </div>
   </div>
 </div>

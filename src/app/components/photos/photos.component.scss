@@ -1,3 +1,13 @@
+.photos-component {
+  padding: 14px;
+  height: 82vh;
+}
+
+::ng-deep .mat-dialog-container {
+  width: 70vw !important;
+  height: 250px
+}
+
 .file-upload {
   display: block;
   width: 100%;

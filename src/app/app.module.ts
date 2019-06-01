@@ -18,6 +18,7 @@ import { ReportComponent } from './components/report/report.component';
 import { EmailReportComponent } from './components/email-report/email-report.component';
 import { PhotosComponent } from './components/photos/photos.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { PhotoCropperComponent } from './components/photo-cropper/photo-cropper.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     TopBarComponent,
     ReportComponent,
     EmailReportComponent,
-    PhotosComponent
+    PhotosComponent,
+    PhotoCropperComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
       useClass: GlobalErrorHandler
     }
   ],
-  entryComponents: [EmailReportComponent],
+  entryComponents: [EmailReportComponent, PhotoCropperComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
