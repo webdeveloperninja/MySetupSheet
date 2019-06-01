@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { PhotoCropperComponent } from '../photo-cropper/photo-cropper.component';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-photos',
@@ -11,13 +12,18 @@ export class PhotosComponent implements OnInit {
   fileToUpload;
   imageChangedEvent: any = '';
   croppedImage: any = '';
+  dialogRef: MatDialogRef<PhotoCropperComponent>;
   constructor(private readonly dialog: MatDialog) {}
 
   ngOnInit() {}
 
   fileUploadEvent(image) {
     this.fileToUpload = image;
-    this.dialog.open(PhotoCropperComponent, { data: { image } });
+    this.dialogRef = this.dialog.open(PhotoCropperComponent, { data: { image } });
+
+    this.dialogRef.componentInstance.imagesChange.pipe(first()).subscribe(d => {
+      this.dialogRef.close();
+    });
   }
 
   fileChangeEvent(event: any): void {

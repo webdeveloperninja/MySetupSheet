@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -17,6 +17,7 @@ export interface Data {
 })
 export class PhotoCropperComponent implements OnInit {
   croppedImage: string;
+  @Output() imagesChange = new EventEmitter<string[]>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Data,
@@ -42,11 +43,16 @@ export class PhotoCropperComponent implements OnInit {
         })
       )
       .subscribe(response => {
+        const images = this._activatedRoute.snapshot.queryParamMap.get('images') || [];
+
         this._router.navigate(['.'], {
           queryParams: {
             images: [response['resourceUri']]
-          }
+          },
+          queryParamsHandling: 'merge'
         });
+
+        this.imagesChange.emit([response['resourceUri']]);
       });
   }
 
