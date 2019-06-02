@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PhotoCropperComponent } from '../photo-cropper/photo-cropper.component';
-import { first, map, filter } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { first, map, filter, withLatestFrom, catchError } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, merge, of } from 'rxjs';
 
 @Component({
   selector: 'app-photos',
@@ -10,12 +11,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent implements OnInit {
-  images$ = this.route.queryParams.pipe(
-    filter(params => {
-      return !!params['images'];
-    }),
-    map(params => {
-      return JSON.parse(params['images']);
+  refresh$ = new Subject();
+
+  images$ = merge(this.refresh$, this.route.queryParams).pipe(
+    map(_ => {
+      const params = this.route.snapshot.queryParams;
+      const images = !!params['images'] ? JSON.parse(params['images']) : [];
+
+      return images;
     })
   );
 
@@ -23,7 +26,7 @@ export class PhotosComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   dialogRef: MatDialogRef<PhotoCropperComponent>;
-  constructor(private readonly dialog: MatDialog, private readonly route: ActivatedRoute) {}
+  constructor(private readonly dialog: MatDialog, private readonly route: ActivatedRoute, private readonly router: Router) {}
 
   ngOnInit() {}
 
@@ -33,6 +36,20 @@ export class PhotosComponent implements OnInit {
 
     this.dialogRef.componentInstance.imagesChange.pipe(first()).subscribe(d => {
       this.dialogRef.close();
+    });
+  }
+
+  deleteImage(imageToDelete: string) {
+    const images: string[] = (!!this.route.snapshot.queryParamMap.get('images')
+      ? JSON.parse(this.route.snapshot.queryParamMap.get('images'))
+      : []
+    ).filter(image => image !== imageToDelete);
+
+    this.router.navigate(['.'], {
+      queryParams: {
+        images: JSON.stringify(images)
+      },
+      queryParamsHandling: 'merge'
     });
   }
 
