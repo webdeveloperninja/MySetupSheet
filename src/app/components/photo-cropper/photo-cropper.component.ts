@@ -16,6 +16,7 @@ export interface Data {
   styleUrls: ['./photo-cropper.component.scss']
 })
 export class PhotoCropperComponent implements OnInit {
+  isLoading = false;
   croppedImage: string;
   @Output() imagesChange = new EventEmitter<string[]>();
 
@@ -29,6 +30,7 @@ export class PhotoCropperComponent implements OnInit {
   ngOnInit() {}
 
   save() {
+    this.isLoading = true;
     const Base64Data = this.croppedImage.split(',')[1];
     this._httpClient
       .post('https://ninjawebstorage.azurewebsites.net/api/Storage?code=U0ijSLnySRppyW4j62PaaNRSTEaFMyoRbP7aH9YN0LaldI4QRDXzig==', {
@@ -58,6 +60,7 @@ export class PhotoCropperComponent implements OnInit {
         });
 
         this.imagesChange.emit([response['resourceUri']]);
+        this.isLoading = false;
       });
   }
 
