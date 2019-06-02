@@ -43,11 +43,16 @@ export class PhotoCropperComponent implements OnInit {
         })
       )
       .subscribe(response => {
-        const images = this._activatedRoute.snapshot.queryParamMap.get('images') || [];
+        const existingImages = !!this._activatedRoute.snapshot.queryParamMap.get('images')
+          ? JSON.parse(this._activatedRoute.snapshot.queryParamMap.get('images'))
+          : [];
+
+        const images: string[] = existingImages;
+        images.push(response['resourceUri']);
 
         this._router.navigate(['.'], {
           queryParams: {
-            images: [response['resourceUri']]
+            images: JSON.stringify(images)
           },
           queryParamsHandling: 'merge'
         });

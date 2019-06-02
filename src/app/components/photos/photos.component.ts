@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PhotoCropperComponent } from '../photo-cropper/photo-cropper.component';
-import { first } from 'rxjs/operators';
+import { first, map, filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-photos',
@@ -9,11 +10,20 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent implements OnInit {
+  images$ = this.route.queryParams.pipe(
+    filter(params => {
+      return !!params['images'];
+    }),
+    map(params => {
+      return JSON.parse(params['images']);
+    })
+  );
+
   fileToUpload;
   imageChangedEvent: any = '';
   croppedImage: any = '';
   dialogRef: MatDialogRef<PhotoCropperComponent>;
-  constructor(private readonly dialog: MatDialog) {}
+  constructor(private readonly dialog: MatDialog, private readonly route: ActivatedRoute) {}
 
   ngOnInit() {}
 
