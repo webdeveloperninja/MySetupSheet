@@ -16,11 +16,6 @@
       </div>
     </div>
   </ng-container>
-  <!-- <mat-grid-list [cols]="imageColumns$ | async" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let image of images$ | async">
-
-    </mat-grid-tile>
-  </mat-grid-list> -->
   <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="1rem">
     <mat-card *ngFor="let image of images$ | async" fxFlex="31%" fxFlex.xs="100%">
       <img class="image" [src]="image">
