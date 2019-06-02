@@ -8,9 +8,17 @@
   height: 100%;
 }
 
+.empty-image {
+  max-width: 320px;
+}
+
+.text-center {
+  text-align: center;
+}
+
 ::ng-deep .mat-dialog-container {
   width: 70vw !important;
-  height: 250px
+  height: 250px;
 }
 
 .file-upload {
@@ -30,7 +38,7 @@
   height: 40px;
   line-height: 40px;
   text-align: left;
-  background: #FFFFFF;
+  background: #ffffff;
   overflow: hidden;
   position: relative;
 }
@@ -51,39 +59,39 @@
 
 .file-upload .file-select:hover {
   border-color: #34495e;
-  transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
 }
 
 .file-upload .file-select:hover .file-select-button {
   background: #34495e;
-  color: #FFFFFF;
-  transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
 }
 
 .file-upload.active .file-select {
   border-color: #3fa46a;
-  transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
 }
 
 .file-upload.active .file-select .file-select-button {
   background: #3fa46a;
-  color: #FFFFFF;
-  transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
+  color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
 }
 
-.file-upload .file-select input[type=file] {
+.file-upload .file-select input[type='file'] {
   z-index: 100;
   cursor: pointer;
   position: absolute;
@@ -109,7 +117,7 @@
   line-height: 40px;
   margin-top: 5px;
   text-align: left;
-  background: #FFFFFF;
+  background: #ffffff;
   overflow: hidden;
   position: relative;
 }

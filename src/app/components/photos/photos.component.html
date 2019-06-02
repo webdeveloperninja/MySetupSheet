@@ -1,4 +1,4 @@
-<div class="photos-component">
+<div class="photos-component" fxLayout="column" fxLayoutGap="2rem">
   <div class="file-upload">
     <div class="file-select">
       <div class="file-select-button" id="fileName">Choose Photo</div>
@@ -6,7 +6,17 @@
       <input type="file" name="chooseFile" id="chooseFile" (change)="fileUploadEvent($event)">
     </div>
   </div>
-  <mat-grid-list cols="2" rowHeight="2:1">
+  <ng-container *ngIf="(images$ | async).length === 0">
+    <div fxLayout="column" fxLayoutGap="2rem">
+      <div class="text-center">
+        <img class="empty-image" src="assets/phone.jpeg">
+      </div>
+      <div>
+        <p class="mat-headline text-center">No photos yet - Upload your setup images!</p>
+      </div>
+    </div>
+  </ng-container>
+  <mat-grid-list cols="3" rowHeight="2:1">
     <mat-grid-tile *ngFor="let image of images$ | async">
       <img class="image" [src]="image">
       <button mat-raised-button (click)="deleteImage(image)" color="primary">Delete</button>
