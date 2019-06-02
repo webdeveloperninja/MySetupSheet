@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { PhotoCropperComponent } from '../photo-cropper/photo-cropper.component';
-import { first, map, filter, withLatestFrom, catchError } from 'rxjs/operators';
+import { first, map, filter, withLatestFrom, catchError, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, merge, of } from 'rxjs';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-photos',
@@ -26,7 +27,14 @@ export class PhotosComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   dialogRef: MatDialogRef<PhotoCropperComponent>;
-  constructor(private readonly dialog: MatDialog, private readonly route: ActivatedRoute, private readonly router: Router) {}
+  constructor(
+    private readonly dialog: MatDialog,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly mediaObserver: MediaObserver
+  ) {}
+
+  imageColumns$ = this.mediaObserver.media$.pipe(map(m => (m.mqAlias === 'sm' || m.mqAlias === 'xs' ? 1 : 3)));
 
   ngOnInit() {}
 
