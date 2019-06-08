@@ -17,7 +17,8 @@ export interface Tool {
 
 @Component({
   selector: 'app-setup-sheet',
-  templateUrl: './setup-sheet.component.html'
+  templateUrl: './setup-sheet.component.html',
+  styleUrls: ['./setup-sheet.component.scss']
 })
 export class SetupSheetComponent implements OnInit, OnDestroy {
   readonly settings: Enviroment = this.enviroment.settings;
