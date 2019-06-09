@@ -15,19 +15,7 @@
       </mat-tab>
       <mat-tab label="Details" *ngIf="showDetailsTab">
         <div class="details-wrapper">
-          <mat-accordion>
-            <mat-expansion-panel [expanded]="true">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Details
-                </mat-panel-title>
-                <mat-panel-description>
-                  Add Details
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <app-details></app-details>
-            </mat-expansion-panel>
-          </mat-accordion>
+          <app-details></app-details>
         </div>
       </mat-tab>
       <mat-tab label="Photos">
