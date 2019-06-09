@@ -19,6 +19,8 @@ import { EmailReportComponent } from './components/email-report/email-report.com
 import { PhotosComponent } from './components/photos/photos.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { PhotoCropperComponent } from './components/photo-cropper/photo-cropper.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from 'src/enviroments/enviroment.dev';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { PhotoCropperComponent } from './components/photo-cropper/photo-cropper.
     ReactiveFormsModule,
     CommonModule,
     ClipboardModule,
-    ImageCropperModule
+    ImageCropperModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {
