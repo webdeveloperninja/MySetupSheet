@@ -2,7 +2,7 @@
   "name": "My Setup Sheet - Machine setup generator",
   "short_name": "MySetupSheet",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "#3f51b5",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
