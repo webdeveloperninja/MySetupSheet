@@ -5,6 +5,7 @@ import { MediaObserver } from '@angular/flex-layout';
 import { Subject } from 'rxjs';
 import { Enviroment } from '../../../enviroments/enviroment';
 import { EnviromentService } from '../../core/services/enviroment.service';
+import { get } from 'scriptjs';
 
 export interface Tool {
   name: string;
@@ -60,6 +61,8 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
         this.showReportTab = true;
       }
     });
+
+    get('https://speedsandfeedsweb.z19.web.core.windows.net/elements.js', () => {});
   }
 
   ngOnDestroy() {
