@@ -61,8 +61,6 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
         this.showReportTab = true;
       }
     });
-
-    // get('https://speedsandfeedsweb.z19.web.core.windows.net/elements.js', () => {});
   }
 
   ngOnDestroy() {
