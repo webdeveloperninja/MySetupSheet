@@ -62,7 +62,7 @@ export class SetupSheetComponent implements OnInit, OnDestroy {
       }
     });
 
-    get('https://speedsandfeedsweb.z19.web.core.windows.net/elements.js', () => {});
+    // get('https://speedsandfeedsweb.z19.web.core.windows.net/elements.js', () => {});
   }
 
   ngOnDestroy() {
